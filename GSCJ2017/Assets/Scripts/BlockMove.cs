@@ -19,6 +19,11 @@ public class BlockMove : MonoBehaviour {
 
     public AudioSource soundTip, SoundPush;
 
+    // variables for breaking objects:
+
+    float newTaskTimer = 0;
+    [SerializeField] FloorManager floorManager;
+
     // Update is called once per frame
     void Update ()
     {
@@ -79,6 +84,19 @@ public class BlockMove : MonoBehaviour {
                 else
                 {
                     targetObject = null;
+                }
+            }
+            else
+            {
+                // we can look for new task!
+
+                if (newTaskTimer > 0)
+                {
+                    newTaskTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    newTaskTimer = 5;
                 }
             }
         }
