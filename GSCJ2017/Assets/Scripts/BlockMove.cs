@@ -21,6 +21,15 @@ public class BlockMove : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            rotateMe(transform.position + Vector3.right);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            rotateMe(transform.position - Vector3.right);
+        }
+
         if (rotating)
         {
             if (rotatePoint == leftCorner)
@@ -54,25 +63,11 @@ public class BlockMove : MonoBehaviour {
 
             if (rotatedDegrees >= 90)
             {
-                soundTip.Play();
+                //soundTip.Play();
                 //CS.ShakeCamera(0.1f, 0.1f);
                 resetRotPoints();
                 rotating = false;
             }
-        }
-
-        if (Input.GetMouseButtonDown(0)) {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-            if (hit.transform == transform)
-            {
-                rotateMe(hit.point);
-            }
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            nudgeLeft();
         }
     }
 
@@ -123,7 +118,7 @@ public class BlockMove : MonoBehaviour {
     {
         if (!rotating)
         {
-            SoundPush.Play();
+            //SoundPush.Play();
             transform.position += -Vector3.right * 0.01f;
         }
     }
@@ -132,7 +127,7 @@ public class BlockMove : MonoBehaviour {
     {
         if (!rotating)
         {
-            SoundPush.Play();
+            //SoundPush.Play();
             transform.position += Vector3.right * 0.01f;
         }
     }
