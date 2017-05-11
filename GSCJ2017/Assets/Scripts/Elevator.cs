@@ -18,6 +18,7 @@ public class Elevator : MonoBehaviour
     [SerializeField]
     bool bottom;
 
+    
     bool callel;
     // Use this for initialization
     void Start()
@@ -32,7 +33,7 @@ public class Elevator : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
-                if (!bottom)
+                if (!bottom&&!MovingDown&&!MovingUp)
                 {
                     
                     MovingDown = true;
@@ -41,7 +42,7 @@ public class Elevator : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                if (!top)
+                if (!top && !MovingDown && !MovingUp)
                 {
                     
                     MovingUp = true;
@@ -50,8 +51,10 @@ public class Elevator : MonoBehaviour
             }
 
         }
+
         if (MovingUp)
         {
+
             ElevatorUp();
         }
         if (MovingDown)
@@ -75,11 +78,13 @@ public class Elevator : MonoBehaviour
 
     void ElevatorUp()
     {
-        transform.Translate(0, 1 * Time.deltaTime, 0);
+        
+        transform.Translate(0, 2 * Time.deltaTime, 0);
     }
     void ElevatorDown()
     {
-transform.Translate(0, -1 * Time.deltaTime, 0);
+        
+        transform.Translate(0, -2 * Time.deltaTime, 0);
     }
 
     void CallElevator(int floortogo)
@@ -154,16 +159,12 @@ transform.Translate(0, -1 * Time.deltaTime, 0);
                 Debug.Log("floor1D");
                 MovingDown = false;
                 currentLOC =2;
-            }
-            if (col.gameObject == Bottom[3])
-            {
-                Debug.Log("floor2D");
-                MovingDown = false;
                 top = false;
-                currentLOC =3;
             }
+            
          
         }
+        
     }
 
 }
