@@ -9,27 +9,19 @@ public class BlockMove : MonoBehaviour {
     [SerializeField] Transform leftNext;
     [SerializeField] Transform rightNext;
 
-    public bool rotating = false;
-    [SerializeField]
+    bool rotating = false;
     Transform rotatePoint = null;
 
     [SerializeField]float rotatedDegrees = 0;
     [SerializeField]float rotateModifier = 1f;
+
+    [SerializeField] Transform targetObject;
 
     public AudioSource soundTip, SoundPush;
 
     // Update is called once per frame
     void Update ()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            rotateMe(transform.position + Vector3.right);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            rotateMe(transform.position - Vector3.right);
-        }
-
         if (rotating)
         {
             if (rotatePoint == leftCorner)
@@ -67,6 +59,27 @@ public class BlockMove : MonoBehaviour {
                 //CS.ShakeCamera(0.1f, 0.1f);
                 resetRotPoints();
                 rotating = false;
+            }
+        }
+        else
+        {
+            if (targetObject != null)
+            {
+                if (Vector3.Distance(transform.position, targetObject.position) > 1)
+                {
+                    if (targetObject.position.x > transform.position.x)
+                    {
+                        rotateMe(transform.position - Vector3.right);
+                    }
+                    else
+                    {
+                        rotateMe(transform.position + Vector3.right);
+                    }
+                }
+                else
+                {
+                    targetObject = null;
+                }
             }
         }
     }
