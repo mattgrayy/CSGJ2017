@@ -18,7 +18,7 @@ public class Elevator : MonoBehaviour
     [SerializeField]
     bool bottom;
 
-    
+    int ell;
     bool callel;
     // Use this for initialization
     void Start()
@@ -63,16 +63,38 @@ public class Elevator : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            callel = true;
+            ell = 0;
+
+        }
+
 
 
         if (Input.GetKeyDown(KeyCode.U))
         {
             callel = true;
-          
+            ell = 1;
+
         }
-        if(callel)
+
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            CallElevator(3);
+            callel = true;
+            ell = 2;
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            callel = true;
+            ell = 3;
+
+        }
+        if (callel)
+        {
+            CallElevator(ell);
         }
     }
 
@@ -87,7 +109,7 @@ public class Elevator : MonoBehaviour
         transform.Translate(0, -2 * Time.deltaTime, 0);
     }
 
-    void CallElevator(int floortogo)
+   public void CallElevator(int floortogo)
     {
         if(currentLOC!= floortogo)
         {
