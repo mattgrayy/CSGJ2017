@@ -33,9 +33,10 @@ public class PuzzleManager : MonoBehaviour {
 
     public void loadElevatorPuzzle(int playerNumber, InteractableObject requestor)
     {
-        players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
+       
         Transform madePuzzle = Instantiate(elevatorPuzzle, puzzleSpawnpoints[playerNumber].position, Quaternion.identity) as Transform;
         madePuzzle.GetComponent<Puzzle>().setPlayer(playerNumber, requestor);
+        players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
     }
 
     public void puzzleComplete(bool outcome, int playerIndex, InteractableObject requestor)
