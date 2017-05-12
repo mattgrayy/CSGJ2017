@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
-
-    void Update()
+    
+    void OnTriggerEnter(Collider col)
     {
 
     }
