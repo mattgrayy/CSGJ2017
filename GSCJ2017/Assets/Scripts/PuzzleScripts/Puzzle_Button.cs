@@ -14,12 +14,12 @@ public class Puzzle_Button : Puzzle {
             switched = true;
 
             // should make animation but...
-            //completePuzzle(true);
+            completePuzzle(true);
         }
 
         if (switched)
         {
-            button.position += new Vector3(0, 2, 0);
+            //button.position += new Vector3(0, 2, 0);
         }
     }
 }
