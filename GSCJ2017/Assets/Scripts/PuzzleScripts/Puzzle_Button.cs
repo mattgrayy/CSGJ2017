@@ -5,10 +5,11 @@ public class Puzzle_Button : Puzzle {
 
     bool switched = false;
 
-	void Update ()
+	new void Update ()
     {
-        if (player.GetButton("Up") && !switched)
+        if (player.GetButtonDown("Up") && !switched)
         {
+            Debug.Log("YUS");
             switched = true;
 
             // should make animation but...

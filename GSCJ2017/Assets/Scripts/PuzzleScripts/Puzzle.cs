@@ -11,10 +11,17 @@ public class Puzzle : MonoBehaviour {
     {
         playerIndex = _playerIndex;
         player = ReInput.players.GetPlayer(playerIndex);
+        Debug.Log(player);
+    }
+
+    protected void Update()
+    {
+
     }
 
     protected void completePuzzle(bool won)
     {
         PuzzleManager.m_instance.puzzleComplete(won, playerIndex);
+        Destroy(gameObject);
     }
 }
