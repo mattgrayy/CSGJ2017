@@ -12,6 +12,7 @@ public class FloorManager : MonoBehaviour {
         {
             if (!jobs[i].getIsBroken() && !jobs[i].getIsInUse())
             {
+                Debug.Log("hu");
                 jobs[i].setIsInUse(true);
                 return jobs[i].transform;
             }

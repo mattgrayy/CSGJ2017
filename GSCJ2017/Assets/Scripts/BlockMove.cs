@@ -118,7 +118,7 @@ public class BlockMove : MonoBehaviour {
                 if (Random.Range(0,3) == 0)
                 {
                     targetObject = floorManager.requestJob();
-                    if (previousTarget != null)
+                    if (previousTarget != null && previousTarget.GetComponent<BreakableObject>())
                     {
                         previousTarget.GetComponent<BreakableObject>().setIsInUse(false);
                     }
