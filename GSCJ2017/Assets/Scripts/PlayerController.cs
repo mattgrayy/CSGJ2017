@@ -91,13 +91,10 @@ public class PlayerController : MonoBehaviour {
     
     void Update()
     {
-<<<<<<< HEAD
         //if (player.GetButtonDown("X"))
         //{
         //    PuzzleManager.m_instance.loadPuzzle(playerIndex);
         //}
-=======
->>>>>>> origin/master
     }
     
     void OnTriggerEnter(Collider col)
