@@ -34,7 +34,7 @@ public class BreakableObject : InteractableObject {
     {
         if (broken)
         {
-            // load random puzzle
+            PuzzleManager.m_instance.loadPuzzle(interactedPlayer);
         }
     }
 }
