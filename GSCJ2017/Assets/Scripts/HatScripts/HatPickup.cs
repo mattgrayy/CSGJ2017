@@ -12,7 +12,7 @@ public class HatPickup : InteractableObject {
     }
     public HatType _hatType;
 
-    public int hatNum;
+    int hatNum;
 
 	void Start ()
     {
@@ -30,8 +30,9 @@ public class HatPickup : InteractableObject {
         }
 	}
 
-    new void interact(int interactedPlayer)
+    override public void interact(int interactedPlayer)
     {
+        Debug.Log("Hat");
         hatMan.addHat(interactedPlayer, hatNum);
         Destroy(gameObject);
     }
