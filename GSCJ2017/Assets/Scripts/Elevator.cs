@@ -19,8 +19,8 @@ public class Elevator : InteractableObject
     [SerializeField]
     bool bottom;
 
-    int ell;
-    bool callel;
+    public int ell;
+    public bool callel;
 
 
    
@@ -54,26 +54,26 @@ public class Elevator : InteractableObject
     // Update is called once per frame
     void Update()
     {
-       if(elevatorChild)
-        {
-           
-        }
+      
 
         if (!MovingDown || !MovingUp)
         {
 
-        }
 
-        if (MovingUp)
-        {
 
-            ElevatorUp();
-        }
-        if (MovingDown)
-        {
-            ElevatorDown();
-        }
+            if (MovingUp)
+            {
 
+                ElevatorUp();
+            }
+            if (MovingDown)
+            {
+                ElevatorDown();
+            }
+
+
+            
+        }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -104,9 +104,17 @@ public class Elevator : InteractableObject
             ell = 3;
 
         }
+
         if (callel)
         {
             CallElevator(ell);
+        }
+
+        if (MovingDown&&MovingUp)
+        {
+            MovingUp = false;
+            MovingDown = false;
+            Debug.Log("UP AND DOWN");
         }
     }
 
@@ -114,14 +122,19 @@ public class Elevator : InteractableObject
 
    public void CallElevator(int floortogo)
     {
+        floorchoice = floortogo;
         if(currentLOC!= floortogo)
         {
             if(floortogo<currentLOC)
             {
-                MovingDown = true;
+               
+                  MovingDown = true;
             }
             if(floortogo>currentLOC)
             {
+
+               
+               
                 MovingUp = true;
             }
         }
@@ -155,59 +168,62 @@ public class Elevator : InteractableObject
 
     void OnTriggerEnter(Collider col)
     {
-        if (MovingUp)
-        {
-            if (col.gameObject == Top[0])
+        
+            if (MovingUp)
             {
-                Debug.Log("groundU");
-                MovingUp = false;
-                bottom = false;
-                currentLOC = 1;
-            }
 
-            if (col.gameObject == Top[1])
-            {
-                Debug.Log("floor1U");
-                MovingUp = false;
-                currentLOC =2;
+                if (col.gameObject == Top[0])
+                {
+                    Debug.Log("groundU");
+                    MovingUp = false;
+                    bottom = false;
+                    currentLOC = 1;
+                }
+
+                if (col.gameObject == Top[1])
+                {
+                    Debug.Log("floor1U");
+                    MovingUp = false;
+                    currentLOC = 2;
+                }
+                if (col.gameObject == Top[2])
+                {
+                    Debug.Log("floor2U");
+                    MovingUp = false;
+                    top = true;
+                    currentLOC = 3;
+                }
+
             }
-            if (col.gameObject == Top[2])
+            if (MovingDown)
             {
-                Debug.Log("floor2U");
-                MovingUp = false;
-                top = true;
-                currentLOC =3;
+                if (col.gameObject == Bottom[0])
+                {
+                    Debug.Log("basement");
+                    MovingDown = false;
+                    bottom = true;
+                    currentLOC = 0;
+                }
+
+                if (col.gameObject == Bottom[1])
+                {
+                    Debug.Log("groundD");
+                    MovingDown = false;
+                    currentLOC = 1;
+                }
+
+                if (col.gameObject == Bottom[2])
+                {
+                    Debug.Log("floor1D");
+                    MovingDown = false;
+                    currentLOC = 2;
+                    top = false;
+                }
+
+
             }
         }
-        if (MovingDown)
-        {
-            if (col.gameObject == Bottom[0])
-            {
-                Debug.Log("basement");
-                MovingDown = false;
-                bottom = true;
-                currentLOC =0;
-            }
 
-            if (col.gameObject == Bottom[1])
-            {
-                Debug.Log("groundD");
-                MovingDown = false;
-                currentLOC = 1;
-            }
-
-            if (col.gameObject == Bottom[2])
-            {
-                Debug.Log("floor1D");
-                MovingDown = false;
-                currentLOC =2;
-                top = false;
-            }
-            
-         
-        }
-      
-    }
 
 
    

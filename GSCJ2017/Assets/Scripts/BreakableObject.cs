@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BreakableObject : InteractableObject {
+
+    [SerializeField] GameObject sparksParticle;
+    [SerializeField] Image AlertImage;
 
     bool broken = false;
     bool inUse = false;
@@ -9,11 +13,15 @@ public class BreakableObject : InteractableObject {
     public void breakObject()
     {
         broken = true;
+        AlertImage.enabled = true;
+        sparksParticle.SetActive(true);
     }
 
     public void fixObject()
     {
-        broken = true;
+        broken = false;
+        AlertImage.enabled = false;
+        sparksParticle.SetActive(false);
     }
 
     public bool getIsBroken()
@@ -30,15 +38,18 @@ public class BreakableObject : InteractableObject {
         inUse = usingBool;
     }
 
-    new void interact(int interactedPlayer)
+    override public void interact(int interactedPlayer)
     {
         if (broken)
         {
             PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
         }
     }
-    new void completedInteraction(bool outcome)
+    override public void completedInteraction(bool outcome)
     {
-        broken = outcome;
+        if (outcome)
+        {
+            fixObject();
+        }
     }
 }
