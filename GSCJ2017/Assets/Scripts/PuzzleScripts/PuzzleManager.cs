@@ -28,15 +28,18 @@ public class PuzzleManager : MonoBehaviour {
         int randIndex = Random.Range(0,puzzles.Count);
         Transform madePuzzle = Instantiate(puzzles[randIndex], puzzleSpawnpoints[playerNumber].position, Quaternion.identity) as Transform;
         madePuzzle.GetComponent<Puzzle>().setPlayer(playerNumber, requestor);
+        players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
     }
 
     public void loadElevatorPuzzle(int playerNumber, InteractableObject requestor)
     {
         // need elevator puzzle
+        //players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
     }
 
-    public void puzzleComplete(bool won, int playerIndex, InteractableObject requestor)
+    public void puzzleComplete(bool outcome, int playerIndex, InteractableObject requestor)
     {
-        Debug.Log("Puzzle Complete!" + " " + playerIndex + " - " + won);
+        players[playerIndex].GetComponent<PlayerController>().isInPuzzle(false);
+        requestor.completedInteraction(outcome);
     }
 }
