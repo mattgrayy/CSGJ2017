@@ -89,7 +89,10 @@ public class BlockMove : MonoBehaviour {
                     // random value should be relative to game time or something
                     if (Random.Range(0, 4) == 0)
                     {
-                        previousTarget.GetComponent<BreakableObject>().breakObject();
+                        if (previousTarget.GetComponent<BreakableObject>())
+                        {
+                            previousTarget.GetComponent<BreakableObject>().breakObject();
+                        }
                     }
                 }
             }
