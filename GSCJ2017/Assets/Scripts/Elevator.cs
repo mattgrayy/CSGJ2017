@@ -150,7 +150,7 @@ public class Elevator : InteractableObject
     override public void interact(int interactedPlayer)
     {
         Debug.Log("Elle is called");
-        PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
+        PuzzleManager.m_instance.loadElevatorPuzzle(interactedPlayer, this);
     }
 
     void OnTriggerEnter(Collider col)
