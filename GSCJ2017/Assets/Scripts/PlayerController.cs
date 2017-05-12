@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 25.0f;
     public int playerIndex;
-    public bool spawned = false;
+    bool spawned = false;
+    bool puzzled = false;
 
     public float rightRot = -10;
     public float leftRot = 10;
@@ -36,52 +37,54 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        
-        if (player.GetButtonDown("Start"))
+        if (!puzzled)
         {
+            if (player.GetButtonDown("Start"))
+            {
+                if (spawned)
+                {
+                    foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
+                        m.enabled = false;
+                    canvas.SetActive(false);
+                    spawned = false;
+                    transform.position = spawnPoint.transform.position;
+                }
+                else
+                {
+                    foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
+                        m.enabled = true;
+                    spawned = true;
+                    canvas.SetActive(true);
+                }
+            }
             if (spawned)
             {
-                foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
-                    m.enabled = false;
-                canvas.SetActive(false);
-                spawned = false;
-                transform.position = spawnPoint.transform.position;
-            }
-            else
-            {
-                foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
-                    m.enabled = true;
-                spawned = true;
-                canvas.SetActive(true);
-            }
-        }
-        if (spawned)
-        {
-            Vector3 currentRotation = transform.eulerAngles;
-           // float zTarget = Mathf.Round(currentRotation.z / 18) * 180;
+                Vector3 currentRotation = transform.eulerAngles;
+                // float zTarget = Mathf.Round(currentRotation.z / 18) * 180;
 
-            currentRotation.z = Mathf.LerpAngle(currentRotation.z, target, Time.deltaTime * 4);
-            transform.eulerAngles = currentRotation;
+                currentRotation.z = Mathf.LerpAngle(currentRotation.z, target, Time.deltaTime * 4);
+                transform.eulerAngles = currentRotation;
 
-            if (player.GetButton("Right") || (player.GetAxis("Horizontal")> 0))
-            {
-                rb.AddForce((Vector3.right * (speed)) * Time.deltaTime);
-                target = rightRot;
-            }
-            if (player.GetButton("Left") || (player.GetAxis("Horizontal") < 0))
-            {
-                rb.AddForce((-Vector3.right * (speed)) * Time.deltaTime);
-                target = leftRot;
-            }
-            if(!player.GetButton("Right") && !player.GetButton("Left") && player.GetAxis("Horizontal") == 0)
-            {
-                target = 0;
-            }
-            if(player.GetButtonDown("Interact"))
-            {
-                Debug.Log("floop");
-                if(interaction != null)
-                    interaction.GetComponent<InteractableObject>().interact(playerIndex);
+                if (player.GetButton("Right") || (player.GetAxis("Horizontal") > 0))
+                {
+                    rb.AddForce((Vector3.right * (speed)) * Time.deltaTime);
+                    target = rightRot;
+                }
+                if (player.GetButton("Left") || (player.GetAxis("Horizontal") < 0))
+                {
+                    rb.AddForce((-Vector3.right * (speed)) * Time.deltaTime);
+                    target = leftRot;
+                }
+                if (!player.GetButton("Right") && !player.GetButton("Left") && player.GetAxis("Horizontal") == 0)
+                {
+                    target = 0;
+                }
+                if (player.GetButtonDown("Interact"))
+                {
+                    Debug.Log("floop");
+                    if (interaction != null)
+                        interaction.GetComponent<InteractableObject>().interact(playerIndex);
+                }
             }
         }
     }
@@ -108,6 +111,11 @@ public class PlayerController : MonoBehaviour {
         {
             interaction = null;
         }
+    }
+
+    public void isInPuzzle(bool _isTrue)
+    {
+        puzzled = _isTrue;
     }
 }
 
