@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 9af5c18c8ab800745a244e45b50b16fb
+timeCreated: 1494584489
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Paper
+    100002: //RootNode
+    100004: Paper001
+    100006: Paper002
+    100008: Paper003
+    100010: Paper004
+    100012: Paper005
+    100014: Paper006
+    100016: Paper007
+    100018: Paper008
+    100020: Paper009
+    100022: Paper010
+    100024: Paper011
+    100026: Paper012
+    100028: Paper013
+    100030: Paper014
+    100032: Paper015
+    100034: Paper016
+    100036: Paper017
+    100038: Paper018
+    100040: Paper019
+    100042: Paper020
+    100044: Paper021
+    100046: Paper022
+    100048: Paper023
+    400000: Paper
+    400002: //RootNode
+    400004: Paper001
+    400006: Paper002
+    400008: Paper003
+    400010: Paper004
+    400012: Paper005
+    400014: Paper006
+    400016: Paper007
+    400018: Paper008
+    400020: Paper009
+    400022: Paper010
+    400024: Paper011
+    400026: Paper012
+    400028: Paper013
+    400030: Paper014
+    400032: Paper015
+    400034: Paper016
+    400036: Paper017
+    400038: Paper018
+    400040: Paper019
+    400042: Paper020
+    400044: Paper021
+    400046: Paper022
+    400048: Paper023
+    2300000: Paper
+    2300002: Paper001
+    2300004: Paper002
+    2300006: Paper003
+    2300008: Paper004
+    2300010: Paper005
+    2300012: Paper006
+    2300014: Paper007
+    2300016: Paper008
+    2300018: Paper009
+    2300020: Paper010
+    2300022: Paper011
+    2300024: Paper012
+    2300026: Paper013
+    2300028: Paper014
+    2300030: Paper015
+    2300032: Paper016
+    2300034: Paper017
+    2300036: Paper018
+    2300038: Paper019
+    2300040: Paper020
+    2300042: Paper021
+    2300044: Paper022
+    2300046: Paper023
+    3300000: Paper
+    3300002: Paper001
+    3300004: Paper002
+    3300006: Paper003
+    3300008: Paper004
+    3300010: Paper005
+    3300012: Paper006
+    3300014: Paper007
+    3300016: Paper008
+    3300018: Paper009
+    3300020: Paper010
+    3300022: Paper011
+    3300024: Paper012
+    3300026: Paper013
+    3300028: Paper014
+    3300030: Paper015
+    3300032: Paper016
+    3300034: Paper017
+    3300036: Paper018
+    3300038: Paper019
+    3300040: Paper020
+    3300042: Paper021
+    3300044: Paper022
+    3300046: Paper023
+    4300000: Paper
+    4300002: Paper001
+    4300004: Paper002
+    4300006: Paper003
+    4300008: Paper004
+    4300010: Paper005
+    4300012: Paper006
+    4300014: Paper007
+    4300016: Paper008
+    4300018: Paper009
+    4300020: Paper010
+    4300022: Paper011
+    4300024: Paper012
+    4300026: Paper013
+    4300028: Paper014
+    4300030: Paper015
+    4300032: Paper016
+    4300034: Paper017
+    4300036: Paper018
+    4300038: Paper019
+    4300040: Paper020
+    4300042: Paper021
+    4300044: Paper022
+    4300046: Paper023
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
