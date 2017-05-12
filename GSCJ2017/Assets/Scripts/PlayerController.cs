@@ -81,9 +81,12 @@ public class PlayerController : MonoBehaviour {
                 }
                 if (player.GetButtonDown("Interact"))
                 {
-                    Debug.Log("floop");
+
                     if (interaction != null)
+                    {
+                        Debug.Log("floop");
                         interaction.GetComponent<InteractableObject>().interact(playerIndex);
+                    }
                 }
             }
         }
@@ -95,8 +98,10 @@ public class PlayerController : MonoBehaviour {
     
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log("enter");
         if(col.tag == "Interactable")
         {
+            
             interaction = col.gameObject;
         }
     }

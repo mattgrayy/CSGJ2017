@@ -13,9 +13,9 @@ public class InteractableObject : MonoBehaviour {
 	
 	}
 
-    public void interact(int interactedPlayer)
+    virtual public void interact(int interactedPlayer)
     {
-
+       
     }
 
     public void completedInteraction(bool outcome)
