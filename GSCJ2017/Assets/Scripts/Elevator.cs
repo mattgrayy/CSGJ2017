@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Rewired;
 
-public class Elevator : MonoBehaviour
+public class Elevator : InteractableObject
 {
 
     [SerializeField]List<GameObject> Top;
@@ -20,10 +21,14 @@ public class Elevator : MonoBehaviour
 
     int ell;
     bool callel;
+
+
+    private Player player;
+   [SerializeField] int floorchoice;
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -133,6 +138,7 @@ public class Elevator : MonoBehaviour
     {
         Debug.Log("chillen");
         col.transform.parent = transform;
+        floorchoice = currentLOC;
       
     }
     void OnCollisionExit(Collision col)
@@ -141,7 +147,22 @@ public class Elevator : MonoBehaviour
         col.transform.parent = null;
     }
 
+    new  void interact(int interactedPlayer)
+    {
+      if(  player.GetButtonDown("Up"))
+        {
+            floorchoice += 1;
+        }
 
+        if (player.GetButtonDown("Down"))
+        {
+            floorchoice -= 1;
+        }
+        if (player.GetButtonDown("Interact"))
+        {
+            CallElevator(floorchoice);
+        }
+    }
 
     void OnTriggerEnter(Collider col)
     {
