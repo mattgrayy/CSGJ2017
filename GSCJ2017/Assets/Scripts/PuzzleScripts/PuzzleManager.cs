@@ -7,6 +7,8 @@ public class PuzzleManager : MonoBehaviour {
     [SerializeField] List<Transform> puzzleSpawnpoints = new List<Transform>();
     [SerializeField] List<Transform> players = new List<Transform>();
 
+    [SerializeField] Transform elevatorPuzzle;
+
     public static PuzzleManager m_instance = null;
 
     void Start()
@@ -26,10 +28,18 @@ public class PuzzleManager : MonoBehaviour {
         int randIndex = Random.Range(0,puzzles.Count);
         Transform madePuzzle = Instantiate(puzzles[randIndex], puzzleSpawnpoints[playerNumber].position, Quaternion.identity) as Transform;
         madePuzzle.GetComponent<Puzzle>().setPlayer(playerNumber, requestor);
+        players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
     }
 
-    public void puzzleComplete(bool won, int playerIndex, InteractableObject requestor)
+    public void loadElevatorPuzzle(int playerNumber, InteractableObject requestor)
     {
-        Debug.Log("Puzzle Complete!" + " " + playerIndex + " - " + won);
+        // need elevator puzzle
+        //players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
+    }
+
+    public void puzzleComplete(bool outcome, int playerIndex, InteractableObject requestor)
+    {
+        players[playerIndex].GetComponent<PlayerController>().isInPuzzle(false);
+        requestor.completedInteraction(outcome);
     }
 }

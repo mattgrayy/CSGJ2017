@@ -6,7 +6,7 @@ public class Puzzle : MonoBehaviour {
 
     protected int playerIndex;
     protected Player player;
-    InteractableObject myCreator;
+    protected InteractableObject myCreator;
 
     public void setPlayer(int _playerIndex, InteractableObject _creator)
     {
@@ -15,9 +15,9 @@ public class Puzzle : MonoBehaviour {
         myCreator = _creator;
     }
 
-    protected void completePuzzle(bool won)
+    protected void completePuzzle(bool outcome)
     {
-        PuzzleManager.m_instance.puzzleComplete(won, playerIndex, myCreator);
+        PuzzleManager.m_instance.puzzleComplete(outcome, playerIndex, myCreator);
         Destroy(gameObject);
     }
 }

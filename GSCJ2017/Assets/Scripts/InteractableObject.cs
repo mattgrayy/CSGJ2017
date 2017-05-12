@@ -17,4 +17,9 @@ public class InteractableObject : MonoBehaviour {
     {
 
     }
+
+    public void completedInteraction(bool outcome)
+    {
+
+    }
 }

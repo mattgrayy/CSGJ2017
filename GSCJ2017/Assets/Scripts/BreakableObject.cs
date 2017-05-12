@@ -37,4 +37,8 @@ public class BreakableObject : InteractableObject {
             PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
         }
     }
+    new void completedInteraction(bool outcome)
+    {
+        broken = outcome;
+    }
 }
