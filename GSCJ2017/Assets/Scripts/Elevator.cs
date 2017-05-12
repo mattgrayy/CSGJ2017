@@ -8,7 +8,7 @@ public class Elevator : MonoBehaviour
     [SerializeField]List<GameObject> Top;
     [SerializeField] List<GameObject> Bottom;
     [SerializeField]
-    int currentLOC;
+    public int currentLOC;
     [SerializeField]
    bool MovingUp;
     [SerializeField]
