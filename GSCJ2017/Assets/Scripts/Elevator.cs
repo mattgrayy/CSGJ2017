@@ -25,6 +25,7 @@ public class Elevator : InteractableObject
 
     private Player player;
    [SerializeField] int floorchoice;
+    public bool elevatorChild = false;
     // Use this for initialization
     void Start()
     {
@@ -139,12 +140,14 @@ public class Elevator : InteractableObject
         Debug.Log("chillen");
         col.transform.parent = transform;
         floorchoice = currentLOC;
+        elevatorChild = true;
       
     }
     void OnCollisionExit(Collision col)
     {
         Debug.Log("vasectomy");
         col.transform.parent = null;
+        elevatorChild = false;
     }
 
     new  void interact(int interactedPlayer)
