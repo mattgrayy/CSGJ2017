@@ -23,13 +23,13 @@ public class Elevator : InteractableObject
     bool callel;
 
 
-    private Player player;
+   
    [SerializeField] int floorchoice;
     public bool elevatorChild = false;
     // Use this for initialization
 
 
-
+    
 
 
     void ElevatorUp()
@@ -43,11 +43,14 @@ public class Elevator : InteractableObject
         transform.Translate(0, -2 * Time.deltaTime, 0);
     }
 
+    
+
     void Start()
     {
         
-    }
 
+    }
+  
     // Update is called once per frame
     void Update()
     {
@@ -146,8 +149,8 @@ public class Elevator : InteractableObject
 
     new  void interact(int interactedPlayer)
     {
-        //if(  player.GetButtonDown("Up"))
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if(player.GetButton("Up"))
+       // if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             floorchoice += 1;
             if (floorchoice > 3)
@@ -156,8 +159,8 @@ public class Elevator : InteractableObject
             }
         }
 
-        //if (player.GetButtonDown("Down"))
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        if (player.GetButtonDown("Down"))
+        //if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             floorchoice -= 1;
             if(floorchoice < 0)
@@ -165,8 +168,8 @@ public class Elevator : InteractableObject
                 floorchoice = 0;
             }
         }
-        //if (player.GetButtonDown("Interact"))
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (player.GetButtonDown("Interact"))
+        //if (Input.GetKeyDown(KeyCode.Return))
         {
             ell = floorchoice;
             callel = true;
