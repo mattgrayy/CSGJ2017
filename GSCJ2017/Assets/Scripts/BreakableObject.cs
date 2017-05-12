@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BreakableObject : MonoBehaviour {
+public class BreakableObject : InteractableObject {
 
     bool broken = false;
     bool inUse = false;
@@ -28,5 +28,13 @@ public class BreakableObject : MonoBehaviour {
     public void setIsInUse(bool usingBool)
     {
         inUse = usingBool;
+    }
+
+    new void interact(int interactedPlayer)
+    {
+        if (broken)
+        {
+            // load random puzzle
+        }
     }
 }
