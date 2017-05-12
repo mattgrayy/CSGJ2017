@@ -5,6 +5,8 @@ public class Puzzle_Button : Puzzle {
 
     bool switched = false;
 
+    [SerializeField] RectTransform button;
+
 	void Update ()
     {
         if (player.GetButtonDown("Up") && !switched)
@@ -12,7 +14,12 @@ public class Puzzle_Button : Puzzle {
             switched = true;
 
             // should make animation but...
-            completePuzzle(true);
+            //completePuzzle(true);
+        }
+
+        if (switched)
+        {
+            button.position += new Vector3(0, 2, 0);
         }
     }
 }
