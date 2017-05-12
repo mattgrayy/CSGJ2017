@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class FloorManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    [SerializeField] List<BreakableObject> jobs = new List<BreakableObject>();
+    [SerializeField] List<Transform> nullJobs = new List<Transform>();
+
+    public Transform requestJob()
+    {
+        for (int i = 0; i < jobs.Count; i++)
+        {
+            if (!jobs[i].getIsBroken() && !jobs[i].getIsInUse())
+            {
+                jobs[i].setIsInUse(true);
+                return jobs[i].transform;
+            }
+        }
+
+        // only null jobs left
+
+        int randIndex = Random.Range(0, nullJobs.Count);
+
+        return nullJobs[randIndex];
+    }
 }

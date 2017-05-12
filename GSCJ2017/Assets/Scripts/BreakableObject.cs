@@ -4,6 +4,7 @@ using System.Collections;
 public class BreakableObject : MonoBehaviour {
 
     bool broken = false;
+    bool inUse = false;
 
     public void breakObject()
     {
@@ -18,5 +19,14 @@ public class BreakableObject : MonoBehaviour {
     public bool getIsBroken()
     {
         return broken;
+    }
+
+    public bool getIsInUse()
+    {
+        return inUse;
+    }
+    public void setIsInUse(bool usingBool)
+    {
+        inUse = usingBool;
     }
 }

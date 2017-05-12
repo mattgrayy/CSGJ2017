@@ -16,6 +16,7 @@ public class BlockMove : MonoBehaviour {
     [SerializeField]float rotateModifier = 1f;
 
     [SerializeField] Transform targetObject;
+    Transform previousTarget;
 
     public AudioSource soundTip, SoundPush;
 
@@ -70,7 +71,7 @@ public class BlockMove : MonoBehaviour {
         {
             if (targetObject != null)
             {
-                if (Vector3.Distance(transform.position, targetObject.position) > 1)
+                if (Vector3.Distance(transform.position, targetObject.position) > 1.2f)
                 {
                     if (targetObject.position.x > transform.position.x)
                     {
@@ -83,24 +84,49 @@ public class BlockMove : MonoBehaviour {
                 }
                 else
                 {
+                    previousTarget = targetObject;
                     targetObject = null;
+                    // random value should be relative to game time or something
+                    if (Random.Range(0, 4) == 0)
+                    {
+                        previousTarget.GetComponent<BreakableObject>().breakObject();
+                    }
                 }
             }
             else
             {
-                // we can look for new task!
+                lookForNewJob();
+            }
+        }
+    }
 
-                if (newTaskTimer > 0)
+    void lookForNewJob()
+    {
+        // we can look for new task!
+
+        if (newTaskTimer > 0)
+        {
+            newTaskTimer -= Time.deltaTime;
+        }
+        else
+        {
+            if (floorManager != null)
+            {
+                newTaskTimer = 2;
+
+                // random value should be relative to game time or something
+                if (Random.Range(0,3) == 0)
                 {
-                    newTaskTimer -= Time.deltaTime;
-                }
-                else
-                {
-                    newTaskTimer = 5;
+                    targetObject = floorManager.requestJob();
+                    if (previousTarget != null)
+                    {
+                        previousTarget.GetComponent<BreakableObject>().setIsInUse(false);
+                    }
                 }
             }
         }
     }
+
 
     public void rotateMe(Vector2 contactPoint)
     {
