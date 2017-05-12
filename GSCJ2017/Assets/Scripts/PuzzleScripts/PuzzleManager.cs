@@ -20,7 +20,7 @@ public class PuzzleManager : MonoBehaviour {
         else
         {
             m_instance = this;
-        }
+        } 
     }
 
     public void loadPuzzle(int playerNumber, InteractableObject requestor)
@@ -33,6 +33,7 @@ public class PuzzleManager : MonoBehaviour {
 
     public void loadElevatorPuzzle(int playerNumber, InteractableObject requestor)
     {
+        Debug.Log("FUUUUCK");
         // need elevator puzzle
         //players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
     }

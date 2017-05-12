@@ -56,7 +56,7 @@ public class Elevator : InteractableObject
     {
        if(elevatorChild)
         {
-            interact(1);
+           
         }
 
         if (!MovingDown || !MovingUp)
@@ -147,35 +147,10 @@ public class Elevator : InteractableObject
         elevatorChild = false;
     }
 
-    new  void interact(int interactedPlayer)
+    override public void interact(int interactedPlayer)
     {
-        if(player.GetButton("Up"))
-       // if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            floorchoice += 1;
-            if (floorchoice > 3)
-            {
-                floorchoice = 3;
-            }
-        }
-
-        if (player.GetButtonDown("Down"))
-        //if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            floorchoice -= 1;
-            if(floorchoice < 0)
-            {
-                floorchoice = 0;
-            }
-        }
-        if (player.GetButtonDown("Interact"))
-        //if (Input.GetKeyDown(KeyCode.Return))
-        {
-            ell = floorchoice;
-            callel = true;
-           
-            
-        }
+        Debug.Log("Elle is called");
+        PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
     }
 
     void OnTriggerEnter(Collider col)
