@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private GameObject spawnPoint;
 
+    private GameObject interaction;
+
     void Start()
     {
         player = ReInput.players.GetPlayer(playerIndex);
@@ -61,26 +63,48 @@ public class PlayerController : MonoBehaviour {
             currentRotation.z = Mathf.LerpAngle(currentRotation.z, target, Time.deltaTime * 4);
             transform.eulerAngles = currentRotation;
 
-            if (player.GetButton("Right"))
+            if (player.GetButton("Right") || (player.GetAxis("Horizontal")> 0))
             {
                 rb.AddForce((Vector3.right * (speed)) * Time.deltaTime);
                 target = rightRot;
             }
-            if (player.GetButton("Left"))
+            if (player.GetButton("Left") || (player.GetAxis("Horizontal") < 0))
             {
                 rb.AddForce((-Vector3.right * (speed)) * Time.deltaTime);
                 target = leftRot;
             }
-            if(!player.GetButton("Right") && !player.GetButton("Left"))
+            if(!player.GetButton("Right") && !player.GetButton("Left") && player.GetAxis("Horizontal") == 0)
             {
                 target = 0;
+            }
+            if(player.GetButtonDown("Interact"))
+            {
+                Debug.Log("floop");
+                if(interaction != null)
+                    interaction.GetComponent<InteractableObject>().interact(playerIndex);
             }
         }
     }
     
-    void OnTriggerEnter(Collider col)
+    void Update()
     {
 
+    }
+    
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.tag == "Interactable")
+        {
+            interaction = col.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.tag == "Interactable")
+        {
+            interaction = null;
+        }
     }
 }
 
