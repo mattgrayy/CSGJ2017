@@ -27,6 +27,22 @@ public class Elevator : InteractableObject
    [SerializeField] int floorchoice;
     public bool elevatorChild = false;
     // Use this for initialization
+
+
+
+
+
+    void ElevatorUp()
+    {
+
+        transform.Translate(0, 2 * Time.deltaTime, 0);
+    }
+    void ElevatorDown()
+    {
+
+        transform.Translate(0, -2 * Time.deltaTime, 0);
+    }
+
     void Start()
     {
         
@@ -35,26 +51,13 @@ public class Elevator : InteractableObject
     // Update is called once per frame
     void Update()
     {
+       if(elevatorChild)
+        {
+            interact(1);
+        }
+
         if (!MovingDown || !MovingUp)
         {
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    if (!bottom&&!MovingDown&&!MovingUp)
-            //    {
-                    
-            //        MovingDown = true;
-            //    }
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.W))
-            //{
-            //    if (!top && !MovingDown && !MovingUp)
-            //    {
-                    
-            //        MovingUp = true;
-            //    }
-
-            //}
 
         }
 
@@ -104,16 +107,7 @@ public class Elevator : InteractableObject
         }
     }
 
-    void ElevatorUp()
-    {
-        
-        transform.Translate(0, 2 * Time.deltaTime, 0);
-    }
-    void ElevatorDown()
-    {
-        
-        transform.Translate(0, -2 * Time.deltaTime, 0);
-    }
+    
 
    public void CallElevator(int floortogo)
     {
@@ -152,18 +146,32 @@ public class Elevator : InteractableObject
 
     new  void interact(int interactedPlayer)
     {
-      if(  player.GetButtonDown("Up"))
+        //if(  player.GetButtonDown("Up"))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             floorchoice += 1;
+            if (floorchoice > 3)
+            {
+                floorchoice = 3;
+            }
         }
 
-        if (player.GetButtonDown("Down"))
+        //if (player.GetButtonDown("Down"))
+        if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             floorchoice -= 1;
+            if(floorchoice < 0)
+            {
+                floorchoice = 0;
+            }
         }
-        if (player.GetButtonDown("Interact"))
+        //if (player.GetButtonDown("Interact"))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            CallElevator(floorchoice);
+            ell = floorchoice;
+            callel = true;
+           
+            
         }
     }
 
