@@ -31,24 +31,24 @@ public class Elevator : MonoBehaviour
     {
         if (!MovingDown || !MovingUp)
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                if (!bottom&&!MovingDown&&!MovingUp)
-                {
+            //if (Input.GetKeyDown(KeyCode.S))
+            //{
+            //    if (!bottom&&!MovingDown&&!MovingUp)
+            //    {
                     
-                    MovingDown = true;
-                }
-            }
+            //        MovingDown = true;
+            //    }
+            //}
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                if (!top && !MovingDown && !MovingUp)
-                {
+            //if (Input.GetKeyDown(KeyCode.W))
+            //{
+            //    if (!top && !MovingDown && !MovingUp)
+            //    {
                     
-                    MovingUp = true;
-                }
+            //        MovingUp = true;
+            //    }
 
-            }
+            //}
 
         }
 
@@ -129,7 +129,17 @@ public class Elevator : MonoBehaviour
     }
 
 
-
+    void OnCollisionEnter(Collision col)
+    {
+        Debug.Log("chillen");
+        col.transform.parent = transform;
+      
+    }
+    void OnCollisionExit(Collision col)
+    {
+        Debug.Log("vasectomy");
+        col.transform.parent = null;
+    }
 
 
 
@@ -186,7 +196,9 @@ public class Elevator : MonoBehaviour
             
          
         }
-        
+      
     }
 
+
+   
 }
