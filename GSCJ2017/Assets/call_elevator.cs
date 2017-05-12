@@ -18,6 +18,7 @@ public class call_elevator : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log("ITS A COMING");
 
         lift.GetComponent<Elevator>().CallElevator(floortogoto);
     }
