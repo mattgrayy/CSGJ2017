@@ -100,9 +100,9 @@ public class PlayerController : MonoBehaviour {
         //}
     }
     
-    void OnTriggerEnter(Collider col)
+    void OnTriggerStay(Collider col)
     {
-        Debug.Log("enter");
+        
         if(col.tag == "Interactable")
         {
             
@@ -121,6 +121,11 @@ public class PlayerController : MonoBehaviour {
     public void isInPuzzle(bool _isTrue)
     {
         puzzled = _isTrue;
+    }
+
+    public bool getPuzzled()
+    {
+        return puzzled;
     }
 }
 

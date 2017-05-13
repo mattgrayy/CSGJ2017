@@ -22,13 +22,11 @@ public class Elevator : InteractableObject
     public int ell;
     public bool callel;
 
-
+    public bool puzzleOpen = false;
    
    [SerializeField] int floorchoice;
     public bool elevatorChild = false;
     // Use this for initialization
-
-
     
 
 
@@ -147,7 +145,6 @@ public class Elevator : InteractableObject
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log("chillen");
         col.transform.parent = transform;
         floorchoice = currentLOC;
         elevatorChild = true;
@@ -155,15 +152,28 @@ public class Elevator : InteractableObject
     }
     void OnCollisionExit(Collision col)
     {
-        Debug.Log("vasectomy");
         col.transform.parent = null;
         elevatorChild = false;
     }
 
     override public void interact(int interactedPlayer)
     {
-        Debug.Log("Elle is called");
-        PuzzleManager.m_instance.loadElevatorPuzzle(interactedPlayer, this);
+        Debug.Log(puzzleOpen + " " + currentLOC + " " + floorchoice + " ");
+        if (!puzzleOpen&&(currentLOC==floorchoice)&&!MovingDown&&!MovingUp)
+        {
+
+            puzzleOpen = true;
+            Debug.Log("NOT FRE");
+          
+            
+            PuzzleManager.m_instance.loadElevatorPuzzle(interactedPlayer, this);
+        }
+    }
+
+    override public void completedInteraction(bool outcome)
+    {
+        Debug.Log("FREE");
+        puzzleOpen = false;
     }
 
     void OnTriggerEnter(Collider col)
@@ -174,7 +184,6 @@ public class Elevator : InteractableObject
 
                 if (col.gameObject == Top[0])
                 {
-                    Debug.Log("groundU");
                     MovingUp = false;
                     bottom = false;
                     currentLOC = 1;
@@ -182,13 +191,11 @@ public class Elevator : InteractableObject
 
                 if (col.gameObject == Top[1])
                 {
-                    Debug.Log("floor1U");
                     MovingUp = false;
                     currentLOC = 2;
                 }
                 if (col.gameObject == Top[2])
                 {
-                    Debug.Log("floor2U");
                     MovingUp = false;
                     top = true;
                     currentLOC = 3;
@@ -199,7 +206,6 @@ public class Elevator : InteractableObject
             {
                 if (col.gameObject == Bottom[0])
                 {
-                    Debug.Log("basement");
                     MovingDown = false;
                     bottom = true;
                     currentLOC = 0;
@@ -207,14 +213,12 @@ public class Elevator : InteractableObject
 
                 if (col.gameObject == Bottom[1])
                 {
-                    Debug.Log("groundD");
                     MovingDown = false;
                     currentLOC = 1;
                 }
 
                 if (col.gameObject == Bottom[2])
                 {
-                    Debug.Log("floor1D");
                     MovingDown = false;
                     currentLOC = 2;
                     top = false;

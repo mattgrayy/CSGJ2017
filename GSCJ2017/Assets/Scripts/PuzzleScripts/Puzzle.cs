@@ -8,7 +8,7 @@ public class Puzzle : MonoBehaviour {
     protected Player player;
     protected InteractableObject myCreator;
 
-    public void setPlayer(int _playerIndex, InteractableObject _creator)
+    virtual public void setPlayer(int _playerIndex, InteractableObject _creator)
     {
         playerIndex = _playerIndex;
         player = ReInput.players.GetPlayer(playerIndex);

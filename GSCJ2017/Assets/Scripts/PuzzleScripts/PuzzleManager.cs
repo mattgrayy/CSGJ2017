@@ -44,4 +44,9 @@ public class PuzzleManager : MonoBehaviour {
         players[playerIndex].GetComponent<PlayerController>().isInPuzzle(false);
         requestor.completedInteraction(outcome);
     }
+
+    public Transform getPlayer(int _playerIndex)
+    {
+        return players[_playerIndex];
+    }
 }
