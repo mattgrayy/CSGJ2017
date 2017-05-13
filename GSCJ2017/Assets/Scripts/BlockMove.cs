@@ -129,9 +129,9 @@ public class BlockMove : MonoBehaviour {
             // fix rotation of tail
             Vector3 currentRotation = tail.eulerAngles;
 
-            currentRotation.x = Mathf.LerpAngle(currentRotation.x, tailRot.x, Time.deltaTime * 4);
-            currentRotation.y = Mathf.LerpAngle(currentRotation.y, tailRot.y, Time.deltaTime * 4);
-            currentRotation.z = Mathf.LerpAngle(currentRotation.z, tailRot.z, Time.deltaTime * 4);
+            currentRotation.x = Mathf.LerpAngle(currentRotation.x, tailRot.x, Time.deltaTime * 10);
+            currentRotation.y = Mathf.LerpAngle(currentRotation.y, tailRot.y, Time.deltaTime * 10);
+            currentRotation.z = Mathf.LerpAngle(currentRotation.z, tailRot.z, Time.deltaTime * 10);
             tail.eulerAngles = currentRotation;
         }
     }
