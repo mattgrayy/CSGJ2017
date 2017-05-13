@@ -2,7 +2,7 @@
 using System.Collections;
 using Rewired;
 
-public class call_elevator : MonoBehaviour {
+public class call_elevator : InteractableObject {
 
     [SerializeField] GameObject lift;
     [SerializeField] int floortogoto;
@@ -27,11 +27,15 @@ public class call_elevator : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("ITS A COMING"+floortogoto);
+      
+    }
+
+
+    override public void interact(int interactedPlayer)
+    {
         if (!called)
         {
             called = true;
         }
     }
-    
 }
