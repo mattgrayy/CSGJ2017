@@ -33,7 +33,8 @@ public class HatPickup : InteractableObject {
     override public void interact(int interactedPlayer)
     {
         Debug.Log("Hat");
-        hatMan.addHat(interactedPlayer, hatNum);
+        //hatMan.addHat(interactedPlayer, hatNum);
+        HatManager.m_instance.addHat(interactedPlayer, hatNum);
         Destroy(gameObject);
     }
 }

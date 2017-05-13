@@ -9,14 +9,14 @@ public class HatManager : MonoBehaviour {
    
     void Start ()
     {
-        //if (m_instance)
-        //{
-        //    Destroy(this.gameObject);
-        //}
-        //else
-        //{
-        //    m_instance = this;
-        //}
+        if (m_instance)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            m_instance = this;
+        }
     }
 	
 	public void addHat(int _playerNum, int _hatNum)

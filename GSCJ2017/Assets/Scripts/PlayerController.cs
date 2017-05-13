@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour {
             if (spawned)
             {
                 Vector3 currentRotation = transform.eulerAngles;
-                // float zTarget = Mathf.Round(currentRotation.z / 18) * 180;
 
                 currentRotation.z = Mathf.LerpAngle(currentRotation.z, target, Time.deltaTime * 4);
                 transform.eulerAngles = currentRotation;
@@ -84,7 +83,6 @@ public class PlayerController : MonoBehaviour {
 
                     if (interaction != null)
                     {
-                        Debug.Log("floop");
                         interaction.GetComponent<InteractableObject>().interact(playerIndex);
                     }
                 }
@@ -94,10 +92,14 @@ public class PlayerController : MonoBehaviour {
     
     void Update()
     {
-        //if (player.GetButtonDown("X"))
-        //{
-        //    PuzzleManager.m_instance.loadPuzzle(playerIndex);
-        //}
+        if (player.GetButtonDown("B"))
+        {
+            Debug.Log("B");
+        }
+        if (player.GetButtonDown("Y"))
+        {
+            Debug.Log("Y");
+        }
     }
     
     void OnTriggerStay(Collider col)
