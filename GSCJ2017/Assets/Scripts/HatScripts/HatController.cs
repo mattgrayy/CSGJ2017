@@ -6,21 +6,22 @@ public class HatController : MonoBehaviour {
     [SerializeField] GameObject HatPosition;
 
     [SerializeField]
-    GameObject Cap;
+    Transform Cap;
     [SerializeField]
-    GameObject Alien;
+    Transform Alien;
     [SerializeField]
-    GameObject Pirate;
-    GameObject Hat;
+    Transform Pirate;
+    Transform Hat;
 
-    public List<GameObject> hats = new List<GameObject>();
+    public List<Transform> hats = new List<Transform>();
 
     public void addHat(int _hatNum)
     {
         hatSelect(_hatNum);
         if (hats.Count == 0)
         {
-            GameObject newHat  = Instantiate(Hat, HatPosition.transform.position, transform.rotation, transform) as GameObject;
+            Debug.Log("Add Hat");
+            Transform newHat  = Instantiate(Hat, HatPosition.transform.position, transform.rotation, transform) as Transform;
             hats.Add(newHat);
         }
         else if (hats.Count<=5)

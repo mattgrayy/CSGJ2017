@@ -21,7 +21,7 @@ public class HatManager : MonoBehaviour {
 	
 	public void addHat(int _playerNum, int _hatNum)
     {
-        Debug.Log(_playerNum);
+        Debug.Log(players[_playerNum]);
         players[_playerNum].GetComponent<HatController>().addHat(_hatNum);
     }
 }
