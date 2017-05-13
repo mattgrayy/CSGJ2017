@@ -9,11 +9,12 @@ public class Puzzle_Tetris : Puzzle {
         public bool complete;
 
         public int numberOfHitsLeft, shapeNeeded;
-
+        public Image greenCover = null;
         
     }
 
     public Sprite Circle = null, Square = null, Triangle = null, Heart = null;
+    public Image squareGreen, triangleGreen, heartGreen, circlegreen;
 
     [SerializeField] int spinnerPosition  = 1;
     
@@ -26,6 +27,9 @@ public class Puzzle_Tetris : Puzzle {
     List<int> TempList = new List<int>();
 
     public int dificulty = 1;
+
+    float targetRotation;
+
 
 
     /*  What the ints represent
@@ -41,6 +45,8 @@ public class Puzzle_Tetris : Puzzle {
     void Start()
     {
 
+        targetRotation = spinner.transform.eulerAngles.z;
+
         //set up the first shapes
       for (int i = 1; i < 5; i++)
         {
@@ -52,7 +58,14 @@ public class Puzzle_Tetris : Puzzle {
             TempList.Add(10);
         }
 
-       foreach (SpinnerPosition spinPos in Positions)
+
+        Positions[0].greenCover = circlegreen;
+        Positions[1].greenCover = squareGreen;
+        Positions[2].greenCover = triangleGreen;
+        Positions[3].greenCover = heartGreen;
+
+
+        foreach (SpinnerPosition spinPos in Positions)
         {
             for (int i= 0; i< spinPos.numberOfHitsLeft; i++)
             {
@@ -77,6 +90,9 @@ public class Puzzle_Tetris : Puzzle {
         shapes = TempList;
 
     }
+
+
+
 
 
 	void Update ()
@@ -109,24 +125,8 @@ public class Puzzle_Tetris : Puzzle {
         
 		if (player.GetButtonDown("Right"))
 		{
-
-            spinner.transform.Rotate(new Vector3(0, 0, 90f));
-
-
-            spinnerPosition--;
-
-            if (spinnerPosition <= 0)
-            {
-                spinnerPosition = 4;
-            }
             
-		}
-
-        if (player.GetButtonDown("Left"))
-        {
-
-            spinner.transform.Rotate(new Vector3(0, 0, -90f));
-
+            targetRotation += 90;
 
             spinnerPosition++;
 
@@ -134,16 +134,34 @@ public class Puzzle_Tetris : Puzzle {
             {
                 spinnerPosition = 1;
             }
+        }
+
+        if (player.GetButtonDown("Left"))
+        {
             
+            targetRotation -= 90;
+
+            
+            spinnerPosition--;
+
+            if (spinnerPosition <= 0)
+            {
+                spinnerPosition = 4;
+            }
+
         }
 
 
-        if (player.GetButton("Interact"))
+
+        Vector3 currentRotation = spinner.transform.eulerAngles;
+        
+        currentRotation.z = Mathf.LerpAngle(currentRotation.z, targetRotation, Time.deltaTime * 7f);
+        spinner.transform.eulerAngles = currentRotation;
+
+        
+        if (player.GetButtonDown("Interact"))
         {
-
-            Debug.Log("interact");
-
-
+            
             if (!Positions[spinnerPosition - 1].complete)
             {
                 //drop a shape from the list
@@ -156,7 +174,9 @@ public class Puzzle_Tetris : Puzzle {
 
                     if (Positions[spinnerPosition - 1].numberOfHitsLeft == 0)
                     {
+                        Debug.Log("complete");
                         Positions[spinnerPosition - 1].complete = true;
+                        Positions[spinnerPosition - 1].greenCover.gameObject.SetActive(true);
                     }
 
 
@@ -167,16 +187,22 @@ public class Puzzle_Tetris : Puzzle {
                 else
                 {
                     Debug.Log("not a match");
+
+                    int lastPos = shapes.Count - 1;
                     //the shape is not a match so move it to the back of the list
                     int shape = shapes[0];
 
                     shapes.RemoveAt(0);
-                    shapes.Insert(4, shape);
+                    shapes.Insert(lastPos, shape);
                     
                 }
             }
 
         }
+
+
+
+
 
 
         //check if the puzzel is complete
@@ -185,7 +211,7 @@ public class Puzzle_Tetris : Puzzle {
 
             completePuzzle(true);
 
-        }      
+        }
 
         
     }
