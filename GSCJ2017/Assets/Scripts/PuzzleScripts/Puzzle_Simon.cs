@@ -5,13 +5,20 @@ using UnityEngine.UI;
 public class Puzzle_Simon : Puzzle
 {
 
-    public Image up = null, down = null, left = null, right = null, upLight = null, downLight = null, rightLight = null, leftLight = null;
+    public Image up = null, down = null, left = null, right = null, upLight = null, downLight = null, rightLight = null, leftLight = null, 
+        upLightPlayer = null, downLightPlayer = null, rightLightPlayer = null, leftLightPlayer = null, upLightPlayerWrong = null,
+        downLightPlayerWrong = null, rightLightPlayerWrong = null, leftLightPlayerWrong = null;
 
 
     //sequence is done on the D-pad
     [SerializeField] List<int> sequence = new List<int>();
-    bool sequencePlaying = true;
-    int sequenceIndex = 0;
+    public bool sequencePlaying = true;
+    public int sequenceIndex = 0;
+    public float sequenceTimer = 0;
+
+    bool playerInputDisabled = true;
+
+    public int playerInputIndex = 0;
 
     public int dificulty = 1;
 
@@ -28,10 +35,9 @@ public class Puzzle_Simon : Puzzle
 
         }
 
+        sequencePlaying = true;
+
     }
-
-
-
 
 
 
@@ -41,63 +47,321 @@ public class Puzzle_Simon : Puzzle
         if (sequencePlaying)
         {
 
+            sequenceTimer += Time.deltaTime;
+
+
             switch (sequence[sequenceIndex])
             {
 
                 case 0:
 
-                    Debug.Log("UP ");
+                    if (sequenceTimer < 0.5f)
+                    {
+                        upLight.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        upLight.gameObject.SetActive(false);
 
-                    upLight.gameObject.SetActive(true);
-                    System.Threading.Thread.Sleep(1);
-                    upLight.gameObject.SetActive(false);
+                    }
+
+                    if (sequenceTimer > 1)
+                    {
+
+                        sequenceIndex++;
+                        sequenceTimer = 0;
+
+                    }
                     break;
 
                 case 1:
 
-                    Debug.Log("DOWN ");
+                    if (sequenceTimer < 0.5f)
+                    {
+                        downLight.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        downLight.gameObject.SetActive(false);
 
-                    downLight.gameObject.SetActive(true);
-                    System.Threading.Thread.Sleep(1);
-                    downLight.gameObject.SetActive(false);
+                    }
+
+                    if (sequenceTimer > 1)
+                    {
+
+                        sequenceIndex++;
+                        sequenceTimer = 0;
+
+                    }
                     break;
 
                 case 2:
 
-                    Debug.Log("RIGHT " + rightLight.gameObject.active);
+                    if (sequenceTimer < 0.5f)
+                    {
+                        rightLight.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        rightLight.gameObject.SetActive(false);
 
-                    rightLight.gameObject.SetActive(true);
-                    System.Threading.Thread.Sleep(1);
-                    rightLight.gameObject.SetActive(false);
+                    }
+
+                    if (sequenceTimer > 1)
+                    {
+
+                        sequenceIndex++;
+                        sequenceTimer = 0;
+
+                    }
                     break;
 
                 case 3:
 
-                    Debug.Log("LEFT ");
+                    if (sequenceTimer < 0.5f)
+                    {
+                        leftLight.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        leftLight.gameObject.SetActive(false);
 
-                    leftLight.gameObject.SetActive(true);
-                    System.Threading.Thread.Sleep(1);
-                    leftLight.gameObject.SetActive(false);
+                    }
+
+                    if (sequenceTimer > 1)
+                    {
+
+                        sequenceIndex++;
+                        sequenceTimer = 0;
+
+                    }
                     break;
             }
 
+            if (sequenceIndex >= sequence.Count)
+            {
 
+                sequencePlaying = false;
+                sequenceTimer = 0;
+                sequenceIndex = 0;
+                playerInputIndex = 0;
+                playerInputDisabled = false;
+
+            }
         }
 
 
 
+
+
+
+
+
+        if (!playerInputDisabled)
+        {
+
+
+
+
+
+
+
+
+            if (player.GetButtonDown("Up"))
+            {
+
+                if (sequence[playerInputIndex] == 0)
+                {
+                    //this is correct
+                    playerInputIndex++;
+                    Debug.Log(playerInputIndex);
+                    upLightPlayer.gameObject.SetActive(true);
+
+                }
+                else
+                {
+
+                    //this is wrong start again
+                    upLightPlayerWrong.gameObject.SetActive(true);
+                }
+
+            }
+
+            if (player.GetButtonUp("Up"))
+            {
+                if (upLightPlayerWrong.IsActive() == true)
+                {
+                    sequencePlaying = true;
+                    playerInputDisabled = true;
+
+                }
+                                
+                upLightPlayer.gameObject.SetActive(false);
+                upLightPlayerWrong.gameObject.SetActive(false);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            if (player.GetButtonDown("Down"))
+            {
+
+                if (sequence[playerInputIndex] == 1)
+                {
+                    //this is correct
+                    playerInputIndex++;
+                    Debug.Log(playerInputIndex);
+                    downLightPlayer.gameObject.SetActive(true);
+
+                }
+                else
+                {
+
+                    //this is wrong start again
+                    downLightPlayerWrong.gameObject.SetActive(true);
+                                       
+                }
+
+            }
+
+            if (player.GetButtonUp("Down"))
+            {
+                if (downLightPlayerWrong.IsActive() == true)
+                {
+                    sequencePlaying = true;
+                    playerInputDisabled = true;
+                    
+                }
+                
+                downLightPlayer.gameObject.SetActive(false);
+                downLightPlayerWrong.gameObject.SetActive(false);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if (player.GetButtonDown("Right"))
+            {
+
+                if (sequence[playerInputIndex] == 2)
+                {
+                    //this is correct
+                    playerInputIndex++;
+                    Debug.Log(playerInputIndex);
+                    rightLightPlayer.gameObject.SetActive(true);
+                }
+                else
+                {
+
+                    //this is wrong start again
+                    rightLightPlayerWrong.gameObject.SetActive(true);
+                }
+
+            }
+
+            if (player.GetButtonUp("Right"))
+            {
+                if (rightLightPlayerWrong.IsActive() == true)
+                {
+                    sequencePlaying = true;
+                    playerInputDisabled = true;
+
+                }
+
+                rightLightPlayer.gameObject.SetActive(false);
+                rightLightPlayerWrong.gameObject.SetActive(false);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if (player.GetButtonDown("Left"))
+            {
+
+                if (sequence[playerInputIndex] == 3)
+                {
+                    //this is correct
+                    playerInputIndex++;
+                    Debug.Log(playerInputIndex);
+                    leftLightPlayer.gameObject.SetActive(true);
+                }
+                else
+                {
+
+                    //this is wrong start again
+                    leftLightPlayerWrong.gameObject.SetActive(true);
+                }
+
+            }
+
+            if (player.GetButtonUp("Left"))
+            {
+                if (leftLightPlayerWrong.IsActive() == true)
+                {
+                    sequencePlaying = true;
+                    playerInputDisabled = true;
+
+                }
+
+
+                leftLightPlayer.gameObject.SetActive(false);
+                leftLightPlayerWrong.gameObject.SetActive(false);
+            }
+
+
+
+
+
+
+
+
+
+
+
+            if (playerInputIndex >= sequence.Count)
+            {
+
+                completePuzzle(true);
+            }
+        }
+
+
+
+        
     }
 
-    //when the sequence is over get the player to input it
-
-    //ticking of their input as they go
-
-    //if they get it wrong say they didnt do it right
-
-    //then play it again for them
 
 
 
 }
+
 
 
