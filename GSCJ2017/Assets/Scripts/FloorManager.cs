@@ -6,6 +6,11 @@ public class FloorManager : MonoBehaviour {
     [SerializeField] List<BreakableObject> jobs = new List<BreakableObject>();
     [SerializeField] List<Transform> nullJobs = new List<Transform>();
 
+    public bool onFire = false, TimerStart = false;
+    [SerializeField] GameObject sprinklerSystem, Fire;
+    
+
+
     public Transform requestJob()
     {
         int jobIndex = getRandomJob();
@@ -71,4 +76,34 @@ public class FloorManager : MonoBehaviour {
         }
         return 99;
     }
+
+    public void PutOutFire(bool ExtinguishFire)
+    {
+
+        //activate the sprinkeler system for this foor
+        sprinklerSystem.SetActive(true);
+        
+        if (ExtinguishFire)
+        {
+            //and put out the fire after a timer
+            onFire = false;
+
+            //also get all the breakable object on the floor and break them all!!!
+            foreach (BreakableObject obj in jobs)
+            {
+                obj.breakObject();
+            }
+        }
+
+        
+    }
+
+
+    public void DeactivateSprinklers()
+    {
+        sprinklerSystem.SetActive(false);
+    }
+    
+
+
 }

@@ -12,9 +12,9 @@ public class Puzzle_Simon : Puzzle
 
     //sequence is done on the D-pad
     [SerializeField] List<int> sequence = new List<int>();
-    public bool sequencePlaying = true;
+    public bool sequencePlaying = true, startTimerFInished = false;
     public int sequenceIndex = 0;
-    public float sequenceTimer = 0;
+    public float sequenceTimer = 0, startTimer = 0;
 
     bool playerInputDisabled = true;
 
@@ -29,7 +29,7 @@ public class Puzzle_Simon : Puzzle
         for (int i = 0; i < dificulty * 4; i++)
         {
             //cerate a sequence
-            int direction = Random.Range(0, 3);
+            int direction = Random.Range(0, 4);
 
             sequence.Add(direction);
 
@@ -43,13 +43,18 @@ public class Puzzle_Simon : Puzzle
 
     void Update()
     {
-
-        if (sequencePlaying)
+        if (!startTimerFInished)
         {
+            startTimer += Time.deltaTime;
+        }
 
+        
+        if (sequencePlaying && startTimer > 1)
+        {
+            
             sequenceTimer += Time.deltaTime;
 
-
+            
             switch (sequence[sequenceIndex])
             {
 
