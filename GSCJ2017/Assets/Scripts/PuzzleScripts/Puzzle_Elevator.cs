@@ -16,7 +16,7 @@ public class Puzzle_Elevator : Puzzle
     {
 
 
-        floornum.fontSize = 30;
+   
         base.setPlayer(_playerIndex, _creator);    
 
         floorchoice = myCreator.GetComponent<Elevator>().currentLOC;
