@@ -10,9 +10,13 @@ public class Puzzle_Elevator : Puzzle
     public bool started;
     float timer = 0;
     bool endel=false;
+   
     // Use this for initialization
     override public void setPlayer(int _playerIndex, InteractableObject _creator)
     {
+
+
+   
         base.setPlayer(_playerIndex, _creator);    
 
         floorchoice = myCreator.GetComponent<Elevator>().currentLOC;
@@ -38,7 +42,7 @@ public class Puzzle_Elevator : Puzzle
                 floornum.text = floorchoice.ToString();
             }
 
-            if (player.GetButtonDown("Left"))
+            if (player.GetButtonDown("Down"))
 
             {
                 floorchoice -= 1;

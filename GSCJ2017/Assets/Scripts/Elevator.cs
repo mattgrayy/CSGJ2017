@@ -85,7 +85,8 @@ public class Elevator : InteractableObject
 
     override public void interact(int interactedPlayer)
     {
-        if (!puzzleOpen && (currentLOC == floorchoice) && !MovingDown && !MovingUp)
+        
+        if (!puzzleOpen && currentLOC == ell && !MovingDown && !MovingUp)
         {
             PuzzleManager.m_instance.loadElevatorPuzzle(interactedPlayer, this);
         }
