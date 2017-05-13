@@ -18,8 +18,8 @@ public class call_elevator : InteractableObject {
 
     [SerializeField] List<call_elevator> buttons;
 
-    bool broken = false;
-    bool inUse = false;
+    public bool broken = false;
+
     // Use this for initialization
     void Start () {
 	
@@ -27,27 +27,16 @@ public class call_elevator : InteractableObject {
 	
 	// Update is called once per frame
 	void Update () {
-        if(broken)
-        {
-            for(int i=0; i<buttons.Count; i++)
-            {
-                buttons[i].breakObject();
-            }
-        }
-
-        if (called)
-        {
-           
-                lift.GetComponent<Elevator>().CallElevator(floortogoto);
-
-            
-            if (lift.GetComponent<Elevator>().currentLOC == floortogoto)
-            {
-                called = false;
-            }
-        }
-        
        
+     
+
+
+        if (lift.GetComponent<Elevator>().currentLOC == floortogoto)
+        {
+            called = false;
+        }
+
+
     }
 
     void OnTriggerEnter(Collider col)
@@ -58,18 +47,24 @@ public class call_elevator : InteractableObject {
 
     override public void interact(int interactedPlayer)
     {
-        if (Random.Range(0, 4) == 0)
+        if (Random.Range(0, 10) == 0)
         {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                    buttons[i].breakObject();
+            }
             breakObject();
         }
-            if(!called && !broken)
-            {
-                called = true;
-            }
-            else if (broken)
-            {
-                PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
-            }
+
+        if (!broken)
+        {
+            lift.GetComponent<Elevator>().CallElevator(floortogoto);
+        }
+
+        if (broken)
+        {
+            PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
+        }
         
     }
 
@@ -77,16 +72,22 @@ public class call_elevator : InteractableObject {
 
     public void breakObject()
     {
-        broken = true;
-        AlertImage.enabled = true;
-        sparksParticle.SetActive(true);
+        if (!broken)
+        {
+            broken = true;
+            AlertImage.enabled = true;
+            sparksParticle.SetActive(true);
+        }
     }
 
     public void fixObject()
     {
-        broken = false;
-        AlertImage.enabled = false;
-        sparksParticle.SetActive(false);
+        if (broken)
+        {
+            broken = false;
+            AlertImage.enabled = false;
+            sparksParticle.SetActive(false);
+        }
     }
 
     public bool getIsBroken()
