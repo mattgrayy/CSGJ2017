@@ -7,19 +7,30 @@ public class Puzzle_Button : Puzzle {
 
     [SerializeField] RectTransform button;
 
+    Vector3 buttonOriginalPos;
+
 	void Update ()
     {
         if (player.GetButtonDown("Up") && !switched)
         {
             switched = true;
 
-            // should make animation but...
-            completePuzzle(true);
+            if (button != null)
+            {
+                buttonOriginalPos = button.position;
+            }
         }
 
-        if (switched)
+        if (switched && button != null)
         {
-            //button.position += new Vector3(0, 2, 0);
+            if (button.position.y < buttonOriginalPos.y + 30)
+            {
+                button.position += new Vector3(0, 4, 0);
+            }
+            else
+            {
+                completePuzzle(true);
+            }
         }
     }
 }
