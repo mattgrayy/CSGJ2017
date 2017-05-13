@@ -27,6 +27,24 @@ public class BlockMove : MonoBehaviour {
     float newTaskTimer = 0;
     [SerializeField] FloorManager floorManager;
 
+    [SerializeField] Transform tail;
+    Vector3 tailRot;
+
+    [SerializeField] bool isRacoon = false;
+    [SerializeField] Transform racoonSpawn;
+    [SerializeField] Transform usbPrefab;
+    bool isRacooning = false;
+
+    bool hasUSB = false;
+
+    void Start()
+    {
+        if (tail != null)
+        {
+            tailRot = tail.eulerAngles;
+        }
+    }
+
     // Update is called once per frame
     void Update ()
     {
@@ -89,11 +107,13 @@ public class BlockMove : MonoBehaviour {
                     previousTarget = targetObject;
                     targetObject = null;
                     // random value should be relative to game time or something
-                    if (Random.Range(0, 4) == 0)
+                    if (hasUSB || Random.Range(0, 8) == 0)
                     {
                         if (previousTarget.GetComponent<BreakableObject>())
                         {
                             previousTarget.GetComponent<BreakableObject>().breakObject();
+                            hasUSB = false;
+                            //Change face from usb face
                         }
                     }
                 }
@@ -103,13 +123,21 @@ public class BlockMove : MonoBehaviour {
                 lookForNewJob();
             }
         }
-        
+
+        if (tail != null)
+        {
+            // fix rotation of tail
+            Vector3 currentRotation = tail.eulerAngles;
+
+            currentRotation.x = Mathf.LerpAngle(currentRotation.x, tailRot.x, Time.deltaTime * 4);
+            currentRotation.y = Mathf.LerpAngle(currentRotation.y, tailRot.y, Time.deltaTime * 4);
+            currentRotation.z = Mathf.LerpAngle(currentRotation.z, tailRot.z, Time.deltaTime * 4);
+            tail.eulerAngles = currentRotation;
+        }
     }
 
     void lookForNewJob()
     {
-        // we can look for new task!
-
         if (newTaskTimer > 0)
         {
             newTaskTimer -= Time.deltaTime;
@@ -120,6 +148,26 @@ public class BlockMove : MonoBehaviour {
             {
                 newTaskTimer = 2;
 
+                // a lower chance to racoon
+                if (isRacoon && !isRacooning)
+                {
+                    if (Random.Range(0, 5) > 0)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        isRacooning = true;
+                        targetObject = floorManager.requestJob();
+
+                        if (previousTarget != null && previousTarget.GetComponent<BreakableObject>())
+                        {
+                            previousTarget.GetComponent<BreakableObject>().setIsInUse(false);
+                        }
+                        return;
+                    }
+                }
+
                 // random value should be relative to game time or something
                 if (Random.Range(0,3) == 0)
                 {
@@ -127,6 +175,13 @@ public class BlockMove : MonoBehaviour {
                     if (previousTarget != null && previousTarget.GetComponent<BreakableObject>())
                     {
                         previousTarget.GetComponent<BreakableObject>().setIsInUse(false);
+                    }
+                }
+                else
+                {
+                    if (isRacoon && isRacooning && Random.Range(0, 3) == 0)
+                    {
+                        stopRacooning();
                     }
                 }
             }
@@ -177,32 +232,24 @@ public class BlockMove : MonoBehaviour {
         }
     }
 
-    public void nudgeLeft()
+    void stopRacooning()
     {
-        if (!rotating)
+        if (Random.Range(0,8) == 0)
         {
-            //SoundPush.Play();
-            transform.position += -Vector3.right * 0.01f;
+            Instantiate(usbPrefab, transform.position, usbPrefab.rotation);
         }
+
+        isRacooning = false;
+        targetObject = racoonSpawn;
     }
 
-    public void nudgeRight()
+    void OnTriggerEnter(Collider col)
     {
-        if (!rotating)
+        if (col.tag == "USB")
         {
-            //SoundPush.Play();
-            transform.position += Vector3.right * 0.01f;
+            hasUSB = true;
+            // change screen to usb
+            Destroy(col.gameObject);
         }
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.transform.tag == "Explosion")
-        {
-            rotateMe(other.transform.position);
-        }
-    }
-
-    
-
 }
