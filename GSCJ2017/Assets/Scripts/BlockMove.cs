@@ -232,7 +232,7 @@ public class BlockMove : MonoBehaviour {
         }
     }
 
-    void stopRacooning()
+    public void stopRacooning()
     {
         if (Random.Range(0,8) == 0)
         {
@@ -245,7 +245,7 @@ public class BlockMove : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "USB")
+        if (col.tag == "Interactable" && col.GetComponent<USB_Pickup>())
         {
             hasUSB = true;
             // change screen to usb
