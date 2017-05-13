@@ -110,7 +110,7 @@ public class Puzzle_Tetris : Puzzle {
 		if (player.GetButtonDown("Right"))
 		{
 
-            spinner.transform.Rotate(new Vector3(0, 0, 45f));
+            spinner.transform.Rotate(new Vector3(0, 0, 90f));
 
 
             spinnerPosition--;
@@ -125,7 +125,7 @@ public class Puzzle_Tetris : Puzzle {
         if (player.GetButtonDown("Left"))
         {
 
-            spinner.transform.Rotate(new Vector3(0, 0, -45f));
+            spinner.transform.Rotate(new Vector3(0, 0, -90f));
 
 
             spinnerPosition++;
