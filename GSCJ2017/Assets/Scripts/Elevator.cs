@@ -26,6 +26,8 @@ public class Elevator : InteractableObject
    
    [SerializeField] int floorchoice;
     public bool elevatorChild = false;
+
+    bool broken;
     // Use this for initialization
     
 
@@ -52,71 +54,78 @@ public class Elevator : InteractableObject
     // Update is called once per frame
     void Update()
     {
-      
 
-        if (!MovingDown || !MovingUp)
+        if (!broken)
         {
-
-
-
-            if (MovingUp)
+            if (!MovingDown || !MovingUp)
             {
 
-                ElevatorUp();
+
+
+                if (MovingUp)
+                {
+
+                    ElevatorUp();
+                }
+                if (MovingDown)
+                {
+                    ElevatorDown();
+                }
+
+
+
             }
-            if (MovingDown)
+
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                ElevatorDown();
+                callel = true;
+                ell = 0;
+
             }
 
 
-            
+
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                callel = true;
+                ell = 1;
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                callel = true;
+                ell = 2;
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                callel = true;
+                ell = 3;
+
+            }
+
+            if (callel)
+            {
+                CallElevator(ell);
+            }
+
+            if (MovingDown && MovingUp)
+            {
+                MovingUp = false;
+                MovingDown = false;
+                Debug.Log("UP AND DOWN");
+            }
+
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            callel = true;
-            ell = 0;
-
-        }
-
-
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            callel = true;
-            ell = 1;
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            callel = true;
-            ell = 2;
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            callel = true;
-            ell = 3;
-
-        }
-
-        if (callel)
-        {
-            CallElevator(ell);
-        }
-
-        if (MovingDown&&MovingUp)
-        {
-            MovingUp = false;
-            MovingDown = false;
-            Debug.Log("UP AND DOWN");
-        }
+        
     }
 
-    
+    void brokenEle()
+    {
+
+    }
 
    public void CallElevator(int floortogo)
     {
@@ -158,15 +167,23 @@ public class Elevator : InteractableObject
 
     override public void interact(int interactedPlayer)
     {
-        Debug.Log(puzzleOpen + " " + currentLOC + " " + floorchoice + " ");
-        if (!puzzleOpen&&(currentLOC==floorchoice)&&!MovingDown&&!MovingUp)
+        if (!broken)
         {
+            Debug.Log(puzzleOpen + " " + currentLOC + " " + floorchoice + " ");
+            if (!puzzleOpen && (currentLOC == floorchoice) && !MovingDown && !MovingUp)
+            {
 
-            puzzleOpen = true;
-            Debug.Log("NOT FRE");
-          
-            
-            PuzzleManager.m_instance.loadElevatorPuzzle(interactedPlayer, this);
+                puzzleOpen = true;
+                Debug.Log("NOT FRE");
+
+
+                PuzzleManager.m_instance.loadElevatorPuzzle(interactedPlayer, this);
+            }
+
+        }
+        else
+        {
+            PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
         }
     }
 
