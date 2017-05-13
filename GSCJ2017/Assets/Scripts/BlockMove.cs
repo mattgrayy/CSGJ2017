@@ -18,6 +18,8 @@ public class BlockMove : MonoBehaviour {
     [SerializeField] Transform targetObject;
     Transform previousTarget;
 
+    [SerializeField] Sprite faceHappy = null, faceNormal = null, faceWorried = null;
+    
     public AudioSource soundTip, SoundPush;
 
     // variables for breaking objects:
@@ -101,6 +103,7 @@ public class BlockMove : MonoBehaviour {
                 lookForNewJob();
             }
         }
+        
     }
 
     void lookForNewJob()
@@ -199,4 +202,7 @@ public class BlockMove : MonoBehaviour {
             rotateMe(other.transform.position);
         }
     }
+
+    
+
 }
