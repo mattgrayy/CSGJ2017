@@ -8,15 +8,70 @@ ModelImporter:
     100000: Box001
     100002: //RootNode
     100004: Sphere001
+    100006: Box011
+    100008: Box012
+    100010: Box013
+    100012: Box014
+    100014: Box015
+    100016: Eye left
+    100018: Eye Right
+    100020: Eyebrow Left
+    100022: Eyebrow Right
+    100024: Lens Left
+    100026: Lens Right
     400000: Box001
     400002: //RootNode
     400004: Sphere001
+    400006: Box011
+    400008: Box012
+    400010: Box013
+    400012: Box014
+    400014: Box015
+    400016: Eye left
+    400018: Eye Right
+    400020: Eyebrow Left
+    400022: Eyebrow Right
+    400024: Lens Left
+    400026: Lens Right
     2300000: Box001
     2300002: Sphere001
+    2300004: Box011
+    2300006: Box012
+    2300008: Box013
+    2300010: Box014
+    2300012: Box015
+    2300014: Eye left
+    2300016: Eye Right
+    2300018: Eyebrow Left
+    2300020: Eyebrow Right
+    2300022: Lens Left
+    2300024: Lens Right
     3300000: Box001
     3300002: Sphere001
+    3300004: Box011
+    3300006: Box012
+    3300008: Box013
+    3300010: Box014
+    3300012: Box015
+    3300014: Eye left
+    3300016: Eye Right
+    3300018: Eyebrow Left
+    3300020: Eyebrow Right
+    3300022: Lens Left
+    3300024: Lens Right
     4300000: Box001
     4300002: Sphere001
+    4300004: Eye left
+    4300006: Eyebrow Right
+    4300008: Eyebrow Left
+    4300010: Eye Right
+    4300012: Lens Left
+    4300014: Lens Right
+    4300016: Box011
+    4300018: Box012
+    4300020: Box013
+    4300022: Box014
+    4300024: Box015
   materials:
     importMaterials: 1
     materialName: 0

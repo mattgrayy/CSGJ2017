@@ -209,7 +209,7 @@ public class Puzzle_Tetris : Puzzle {
         if (shapes.Count <= 0)
         {
 
-            completePuzzle(true, 0);
+            completePuzzle(true, 25);
 
         }
 

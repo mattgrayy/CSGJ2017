@@ -13,7 +13,6 @@ public class PirateInvasion : MonoBehaviour {
 	void Start () {
 
 
-        Debug.Log("booom!!!");
         Instantiate(explosion, target.transform.position, Quaternion.identity);
         roofPiece.SetActive(false);
         

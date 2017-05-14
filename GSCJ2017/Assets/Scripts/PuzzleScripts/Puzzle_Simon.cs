@@ -374,7 +374,7 @@ public class Puzzle_Simon : Puzzle
             if (playerInputIndex >= sequence.Count)
             {
 
-                completePuzzle(true, 0);
+                completePuzzle(true, 50);
             }
 
 

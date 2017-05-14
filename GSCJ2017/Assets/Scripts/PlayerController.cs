@@ -19,8 +19,7 @@ public class PlayerController : MonoBehaviour {
 
     private Player player;
     private Rigidbody rb;
-    [SerializeField]
-    private GameObject canvas;
+    //[SerializeField] private GameObject canvas;
     [SerializeField]
     private GameObject spawnPoint;
 
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour {
         foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
             m.enabled = false;
         spawned = false;
-        canvas.SetActive(false);
+        //canvas.SetActive(false);
         transform.position = spawnPoint.transform.position;
 
     }
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
                         m.enabled = false;
-                    canvas.SetActive(false);
+                    //canvas.SetActive(false);
                     spawned = false;
                     transform.position = spawnPoint.transform.position;
                     PuzzleManager.m_instance.setPuzzleDropout(playerIndex);
@@ -59,7 +58,7 @@ public class PlayerController : MonoBehaviour {
                     foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
                         m.enabled = true;
                     spawned = true;
-                    canvas.SetActive(true);
+                    //canvas.SetActive(true);
                     PuzzleManager.m_instance.setPuzzleIdle(playerIndex);
                 }
             }
