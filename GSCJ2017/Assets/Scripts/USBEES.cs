@@ -35,106 +35,150 @@ public class USBEES : MonoBehaviour
     [SerializeField]
     bool USGO;
 
+    [SerializeField]
+    float bTimer;
+
+    bool bTset = false;
+
+
     // Use this for initialization
     void Start()
     {
         USB.transform.parent = Wings.transform;
         USB.GetComponent<BoxCollider>().enabled = false;
+        USB.GetComponent<Rigidbody>().isKinematic = true;
 
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        props.transform.Rotate(0, 0, 1);
+        if(props !=null&&Wings !=null &&USB!=null)
+        { 
+            props.transform.Rotate(0, 0, 5);
 
-        if (GoHome&& Wings.transform.position.x >= beeSpawn.transform.position.x)
+            if (die)
+            {
+                BoxCollider[] BOXES= USB.GetComponents<BoxCollider>();
+                foreach(BoxCollider Box in BOXES)
+                {
+                    Box.enabled = true;
+                }
+               
+                USB.transform.parent = null;
+                USB.GetComponent<Rigidbody>().isKinematic = false;
+                Destroy(gameObject);
+               
+            }
+
+            if (GoHome&& Wings.transform.position.x >= beeSpawn.transform.position.x)
         {
             USGO=false;
         }
-       
+
+
+        if (Wings.transform.position.x <= farLeft.transform.position.x && !GoHome)
+        {
+            GoHome = true;
+        }
 
         if (Random.Range(0, 2) == 0 && !USGO)
         {
             USGO = true;
         }
 
-        if (USGO)
-        {
-
-            if (Wings.transform.position.x < window.transform.position.x && !windowB)
+            if (USGO)
             {
-                windowB = true;
 
-            }
-            if (Wings.transform.position.x >= window.transform.position.x && windowB)
-            {
-                windowB = false;
-
-            }
-
-            if (!GoHome)
-            {
-                Wings.transform.Translate(-1 * Time.deltaTime, 0, 0);
-            }
-
-            if (GoHome)
-            {
-                if (Wings.transform.position.x < beeSpawn.transform.position.x)
+                if (Wings.transform.position.x < window.transform.position.x && !windowB)
                 {
-                    
-                    Wings.transform.Translate(1 * Time.deltaTime, 0, 0);
-                }
-            }
-
-            if (Wings.transform.position.x > farLeft.transform.position.x)
-            {
-               
-               
-
-              
-
-                if (windowB)
-                {
-                    if(TopB||BottomB)
-                    {
-                        Wings.transform.Translate(0, Random.Range(-3f, 3.5f) * Time.deltaTime, 0);
-                    }
-                    if (Wings.transform.position.y < roomtop.transform.position.y&&!TopB)
-                    {
-                       
-                      
-                    }
-                    if (Wings.transform.position.y>= roomtop.transform.position.y && !TopB)
-                    {
-                        TopB = true;
-                        BottomB = false;
-                    }
-                    if (TopB && !BottomB && Wings.transform.position.y > roomBottom.transform.position.y)
-                    {
-                       // Wings.transform.Translate(0, - Random.Range(0.5f, 3.5f) * Time.deltaTime, 0);
-                        
-                    }
-                    if (TopB && !BottomB && Wings.transform.position.y <= roomBottom.transform.position.y)
-                    {
-                        TopB = false;
-                        BottomB = true;
-                    }
-
-
-
+                    windowB = true;
 
                 }
-            }
-            else if (Wings.transform.position.x <= farLeft.transform.position.x&&!GoHome)
-            {
-                GoHome = true;
-            }
-                
+                if (Wings.transform.position.x >= window.transform.position.x && windowB)
+                {
+                    windowB = false;
 
+                }
+
+                if (!GoHome)
+                {
+                    Wings.transform.Translate(-1 * Time.deltaTime, 0, 0);
+                }
+
+                if (GoHome)
+                {
+                    if (Wings.transform.position.x < beeSpawn.transform.position.x)
+                    {
+
+                        Wings.transform.Translate(1 * Time.deltaTime, 0, 0);
+                    }
+                }
+
+                if (Wings.transform.position.x > farLeft.transform.position.x)
+                {
+
+
+
+
+
+                    if (windowB)
+                    {
+
+                        if (!bTset)
+                        {
+                            bTimer = Random.Range(3,5 );
+                            bTset = true;
+                        }
+
+
+
+                        ////bouncy movement when in the building.
+                        if (Wings.transform.position.y < roomtop.transform.position.y && !TopB)
+                        {
+                            Wings.transform.Translate(0, Random.Range(-1f, 3.5f) * Time.deltaTime, 0);
+
+
+                        }
+                        if (Wings.transform.position.y >= roomtop.transform.position.y && !TopB)
+                        {
+                            TopB = true;
+                            BottomB = false;
+                        }
+                        if (TopB && !BottomB && Wings.transform.position.y > roomBottom.transform.position.y)
+                        {
+                            Wings.transform.Translate(0, -Random.Range(0.5f, 3.5f) * Time.deltaTime, 0);
+
+                        }
+                        if (TopB && !BottomB && Wings.transform.position.y <= roomBottom.transform.position.y)
+                        {
+                            TopB = false;
+                            BottomB = true;
+                        }
+
+
+                        if (bTset)
+                        {
+                            bTimer -= Time.deltaTime;
+                         
+                        }
+                        if (bTimer < 0)
+                        {
+                            die = true;
+                        }
+
+                    }
+
+                 
+                }
+
+
+            }
             
         }
+
+       
     }
 }       
             
