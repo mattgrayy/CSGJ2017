@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour {
         }
 
 
-        if (eventReserve > 0 && )
+        if (eventReserve > 0 && !eventsOnCoolDown)
         {
 
             //there is a chance for an event to trigger
