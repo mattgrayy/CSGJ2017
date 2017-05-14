@@ -64,7 +64,7 @@ public class Sprinkler_Button : InteractableObject
 
         if (startTimer == true)
         {
-            timer = 2f;
+            timer = 0f;
         }
 
 

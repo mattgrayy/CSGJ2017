@@ -82,14 +82,17 @@ public class FloorManager : MonoBehaviour {
     {
 
         //activate the sprinkeler system for this foor
-        sprinklerSystem.SetActive(true);
-        
+        sprinklerSystem.transform.FindChild("Water sprinkelers 1").GetComponent<ParticleSystem>().Play();
+        sprinklerSystem.transform.FindChild("Water sprinkelers 2").GetComponent<ParticleSystem>().Play();
+        sprinklerSystem.transform.FindChild("Water sprinkelers 3").GetComponent<ParticleSystem>().Play();
+
         if (ExtinguishFire)
         {
             //and put out the fire after a timer
             onFire = false;
-            Fire.gameObject.SetActive(false);
-
+            Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().Stop();
+            Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().Stop();
+            Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().Stop();
 
             burnTimer = 0;
 
@@ -128,7 +131,9 @@ public class FloorManager : MonoBehaviour {
 
     public void DeactivateSprinklers()
     {
-        sprinklerSystem.SetActive(false);
+        sprinklerSystem.transform.FindChild("Water sprinkelers 1").GetComponent<ParticleSystem>().Stop();
+        sprinklerSystem.transform.FindChild("Water sprinkelers 2").GetComponent<ParticleSystem>().Stop();
+        sprinklerSystem.transform.FindChild("Water sprinkelers 3").GetComponent<ParticleSystem>().Stop();
     }
 
 
@@ -143,7 +148,9 @@ public class FloorManager : MonoBehaviour {
         {
             burnTimer += Time.deltaTime;
 
-            Fire.gameObject.SetActive(true);
+            Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().Play();
+            Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().Play();
+            Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().Play();
 
             ParticleSystem.ShapeModule shapeMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().shape;
             shapeMod.radius = 1 + 1 * burnTimer;
@@ -166,12 +173,6 @@ public class FloorManager : MonoBehaviour {
             
 
         }
-        
-
-
-
-
-
 
     }
 
