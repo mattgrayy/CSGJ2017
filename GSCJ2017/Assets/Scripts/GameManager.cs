@@ -48,7 +48,10 @@ public class GameManager : MonoBehaviour {
     {
         foreach (FloorManager floor in floorManagers)
         {
-            floor.DeactivateSprinklers();
+            if (floor.gameObject.name != "Basement")
+            {
+                floor.DeactivateSprinklers();
+            }
         }
     }
 
