@@ -33,13 +33,13 @@ public class PlayerController : MonoBehaviour {
         foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
             m.enabled = false;
         spawned = false;
-<<<<<<< HEAD
+
         //canvas.SetActive(false);
         transform.position = spawnPoint.transform.position;
-=======
-        canvas.SetActive(false);
+
+        //canvas.SetActive(false);
         transform.position = spawnPoint.transform.position + new Vector3(0,0,playerIndex*0.1f);
->>>>>>> origin/master
+
 
     }
 
