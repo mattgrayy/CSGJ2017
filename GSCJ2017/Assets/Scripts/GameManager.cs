@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour {
 
                 case 1:
                     //Pirate
+                    //spawn point
+                    // 3.86  17.12  -1.24
+
+                    Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity);
+                    
                     break;
 
                 case 2:
