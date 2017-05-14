@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PirateInvasion : MonoBehaviour {
 
-    [SerializeField] GameObject anchorTop = null, boat = null, explosion = null, roofPiece = null;
+    public GameObject anchorTop = null, boat = null, explosion = null, roofPiece = null;
     [SerializeField] Transform target = null;
     
 

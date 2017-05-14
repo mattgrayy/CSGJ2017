@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0;
     int eventReserve = 1;
     public float eventThreshhold = 120f;
+    public GameObject roofPiece = null, boom = null, target = null;
 
     public List<GameObject> events = new List<GameObject>();
     
@@ -63,7 +64,10 @@ public class GameManager : MonoBehaviour {
             switch (eventChance)
             {
                 case 0:
-                   //Alien
+                    //Alien
+                    GameObject eventt1 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
+                    eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
+                    eventt1.GetComponent<AlienInvasion>().target = target.transform;
                     break;
 
                 case 1:
@@ -71,12 +75,14 @@ public class GameManager : MonoBehaviour {
                     //spawn point
                     // 3.86  17.12  -1.24
 
-                    Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity);
-                    
+                    GameObject eventt2 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
+                    eventt2.GetComponent<PirateInvasion>().roofPiece = roofPiece;
                     break;
 
                 case 2:
-                    //Fre
+                    //Fire
+
+
                     break;
 
                 case 3:
