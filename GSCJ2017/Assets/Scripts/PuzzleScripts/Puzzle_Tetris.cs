@@ -45,7 +45,7 @@ public class Puzzle_Tetris : Puzzle {
     void Start()
     {
 
-        targetRotation = spinner.transform.eulerAngles.z;
+        targetRotation = spinner.transform.eulerAngles.z -45;
 
         //set up the first shapes
       for (int i = 1; i < 5; i++)
