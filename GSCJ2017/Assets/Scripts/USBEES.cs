@@ -55,7 +55,7 @@ public class USBEES : MonoBehaviour
         USB.GetComponent<BoxCollider>().enabled = false;
         USB.GetComponent<Rigidbody>().isKinematic = true;
 
-        movedelay = Random.Range(1, 5);
+        movedelay = Random.Range(10, 50);
 
        
 
