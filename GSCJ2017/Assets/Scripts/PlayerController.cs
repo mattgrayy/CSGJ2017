@@ -107,8 +107,10 @@ public class PlayerController : MonoBehaviour {
         
         if(col.tag == "Interactable")
         {
-            
-            interaction = col.gameObject;
+            if (!interaction.GetComponent<BreakableObject>() || !interaction.GetComponent<BreakableObject>().getIsBroken())
+            {
+                interaction = col.gameObject;
+            }
         }
     }
 

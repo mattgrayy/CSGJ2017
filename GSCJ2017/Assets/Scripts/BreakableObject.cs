@@ -15,6 +15,7 @@ public class BreakableObject : InteractableObject {
         broken = true;
         AlertImage.enabled = true;
         sparksParticle.SetActive(true);
+        GameManager.m_instance.addToGlobalStress(2);
     }
 
     public void fixObject()
