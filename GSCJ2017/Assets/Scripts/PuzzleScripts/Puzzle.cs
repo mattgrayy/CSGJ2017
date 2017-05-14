@@ -15,9 +15,9 @@ public class Puzzle : MonoBehaviour {
         myCreator = _creator;
     }
 
-    protected void completePuzzle(bool outcome)
+    protected void completePuzzle(bool outcome, int score)
     {
-        PuzzleManager.m_instance.puzzleComplete(outcome, playerIndex, myCreator);
+        PuzzleManager.m_instance.puzzleComplete(outcome, playerIndex, score, myCreator);
         Destroy(gameObject);
     }
 }

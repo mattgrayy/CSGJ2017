@@ -74,7 +74,7 @@ public class Puzzle_Elevator : Puzzle
                 }
                 else
                 {
-                    completePuzzle(true);
+                    completePuzzle(false, 0);
                 }
             }
         }

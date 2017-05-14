@@ -33,7 +33,7 @@ public class BlockMove : MonoBehaviour {
     [SerializeField] bool isRacoon = false;
     [SerializeField] Transform racoonSpawn;
     [SerializeField] Transform usbPrefab;
-    bool isRacooning = false;
+    public bool isRacooning = false;
 
     bool hasUSB = false;
 
@@ -234,7 +234,7 @@ public class BlockMove : MonoBehaviour {
 
     public void stopRacooning()
     {
-        if (Random.Range(0,8) == 0)
+        if (Random.Range(0,6) == 0)
         {
             Instantiate(usbPrefab, transform.position, usbPrefab.rotation);
         }

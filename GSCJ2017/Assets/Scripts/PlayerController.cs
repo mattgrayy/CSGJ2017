@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour {
     bool spawned = false;
     bool puzzled = false;
 
+    public int score = 0;
+    public int racoonsScared = 0;
+    public int puzzlesSolved = 0;
+
     public float rightRot = -10;
     public float leftRot = 10;
     float target = 0;
@@ -48,6 +52,7 @@ public class PlayerController : MonoBehaviour {
                     canvas.SetActive(false);
                     spawned = false;
                     transform.position = spawnPoint.transform.position;
+                    PuzzleManager.m_instance.setPuzzleDropout(playerIndex);
                 }
                 else
                 {
@@ -55,6 +60,7 @@ public class PlayerController : MonoBehaviour {
                         m.enabled = true;
                     spawned = true;
                     canvas.SetActive(true);
+                    PuzzleManager.m_instance.setPuzzleIdle(playerIndex);
                 }
             }
             if (spawned)

@@ -29,8 +29,7 @@ public class Puzzle_Button : Puzzle {
             }
             else
             {
-                Debug.Log("done");
-                completePuzzle(true);
+                completePuzzle(true, 5);
             }
         }
     }

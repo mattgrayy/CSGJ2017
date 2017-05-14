@@ -70,7 +70,7 @@ public class Puzzle_ButtonMash : Puzzle {
         mashed++;
         if (mashed == difficulty)
         {
-            completePuzzle(true);
+            completePuzzle(true, 0);
         }
     }
 
@@ -79,7 +79,7 @@ public class Puzzle_ButtonMash : Puzzle {
         mashed = 0;
         attempts++;
         if (attempts >= 4)
-            completePuzzle(false);
+            completePuzzle(false, 0);
         else
         {
             safe.gameObject.SetActive(false);
