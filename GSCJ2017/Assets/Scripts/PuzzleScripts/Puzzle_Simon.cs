@@ -203,6 +203,12 @@ public class Puzzle_Simon : Puzzle
                                 
                 upLightPlayer.gameObject.SetActive(false);
                 upLightPlayerWrong.gameObject.SetActive(false);
+                downLightPlayer.gameObject.SetActive(false);
+                downLightPlayerWrong.gameObject.SetActive(false);
+                rightLightPlayer.gameObject.SetActive(false);
+                rightLightPlayerWrong.gameObject.SetActive(false);
+                leftLightPlayer.gameObject.SetActive(false);
+                leftLightPlayerWrong.gameObject.SetActive(false);
             }
 
 
@@ -245,9 +251,15 @@ public class Puzzle_Simon : Puzzle
                     playerInputDisabled = true;
                     
                 }
-                
+
+                upLightPlayer.gameObject.SetActive(false);
+                upLightPlayerWrong.gameObject.SetActive(false);
                 downLightPlayer.gameObject.SetActive(false);
                 downLightPlayerWrong.gameObject.SetActive(false);
+                rightLightPlayer.gameObject.SetActive(false);
+                rightLightPlayerWrong.gameObject.SetActive(false);
+                leftLightPlayer.gameObject.SetActive(false);
+                leftLightPlayerWrong.gameObject.SetActive(false);
             }
 
 
@@ -290,8 +302,14 @@ public class Puzzle_Simon : Puzzle
 
                 }
 
+                upLightPlayer.gameObject.SetActive(false);
+                upLightPlayerWrong.gameObject.SetActive(false);
+                downLightPlayer.gameObject.SetActive(false);
+                downLightPlayerWrong.gameObject.SetActive(false);
                 rightLightPlayer.gameObject.SetActive(false);
                 rightLightPlayerWrong.gameObject.SetActive(false);
+                leftLightPlayer.gameObject.SetActive(false);
+                leftLightPlayerWrong.gameObject.SetActive(false);
             }
 
 
@@ -337,6 +355,12 @@ public class Puzzle_Simon : Puzzle
                 }
 
 
+                upLightPlayer.gameObject.SetActive(false);
+                upLightPlayerWrong.gameObject.SetActive(false);
+                downLightPlayer.gameObject.SetActive(false);
+                downLightPlayerWrong.gameObject.SetActive(false);
+                rightLightPlayer.gameObject.SetActive(false);
+                rightLightPlayerWrong.gameObject.SetActive(false);
                 leftLightPlayer.gameObject.SetActive(false);
                 leftLightPlayerWrong.gameObject.SetActive(false);
             }
