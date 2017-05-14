@@ -3,11 +3,18 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
+    float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0;
+    int eventReserve = 1;
+    public float eventThreshhold = 120f;
+
+    public List<GameObject> events invasionAlien = null, invasionPirate = null;
+    
+
     public List<FloorManager> floorManagers = new List<FloorManager>();
 
     [SerializeField] int globalScore = 0;
     [SerializeField] float globalStress = 0;
-    bool stressOut = false;
+    bool stressOut = false, eventsOnCoolDown = true;
 
     public static GameManager m_instance = null;
 
@@ -25,6 +32,70 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
+
+        worldTimer += Time.deltaTime;
+        newEventTimer += Time.deltaTime;
+
+        if (newEventTimer >= eventThreshhold)
+        {
+            newEventTimer = 0;
+            eventReserve++;
+
+        }
+
+        if (eventsOnCoolDown)
+        {
+            eventCoolDown += Time.deltaTime;
+
+            if (eventCoolDown > eventThreshhold)
+            {
+                eventsOnCoolDown = false;
+                eventCoolDown = 0;
+
+            }
+        }
+
+
+        if (eventReserve > 0 && )
+        {
+
+            //there is a chance for an event to trigger
+            int eventChance = Random.Range(0, 100);
+
+            switch (eventChance)
+            {
+                case 0:
+                   //Alien
+                    break;
+
+                case 1:
+                    //Pirate
+                    break;
+
+                case 2:
+                    //Fre
+                    break;
+
+                case 3:
+                    //Fire
+                    break;
+
+                case 4:
+                    //Fire
+                    break;
+
+                default:
+                    //do nothing
+                    break;
+
+            }
+
+        }
+
+
+
+
+
         if (stressOut)
         {
             globalStress = Mathf.Clamp(globalStress += Time.deltaTime, 0, 100);

@@ -13,8 +13,10 @@ ModelImporter:
     400004: shaft
     2300000: propelers
     2300002: shaft
+    2300004: //RootNode
     3300000: propelers
     3300002: shaft
+    3300004: //RootNode
     4300000: shaft
     4300002: propelers
   materials:
