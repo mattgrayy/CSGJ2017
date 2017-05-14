@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
     int eventReserve = 1;
     public float eventThreshhold = 120f;
 
-    public List<GameObject> events invasionAlien = null, invasionPirate = null;
+    public List<GameObject> events = new List<GameObject>();
     
 
     public List<FloorManager> floorManagers = new List<FloorManager>();
