@@ -6,7 +6,7 @@ public class FloorManager : MonoBehaviour {
     public List<BreakableObject> jobs = new List<BreakableObject>();
     [SerializeField] List<Transform> nullJobs = new List<Transform>();
 
-    public bool onFire = false, TimerStart = false;
+    public bool onFire = false, TimerStart = false, audioPlay = false, audioStarted = false;
     [SerializeField] GameObject sprinklerSystem, Fire;
     public float burnTimer = 0;
     
@@ -86,6 +86,11 @@ public class FloorManager : MonoBehaviour {
         sprinklerSystem.transform.FindChild("Water sprinkelers 2").GetComponent<ParticleSystem>().Play();
         sprinklerSystem.transform.FindChild("Water sprinkelers 3").GetComponent<ParticleSystem>().Play();
 
+        if (!ExtinguishFire)
+        {
+            sprinklerSystem.GetComponent<AudioSource>().Play();
+        }
+
         if (ExtinguishFire)
         {
             //and put out the fire after a timer
@@ -93,6 +98,9 @@ public class FloorManager : MonoBehaviour {
             Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().Stop();
             Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().Stop();
             Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().Stop();
+            
+            audioStarted = false;
+
 
             burnTimer = 0;
 
@@ -141,39 +149,74 @@ public class FloorManager : MonoBehaviour {
 
     void Update()
     {
-
-
-
-        if (onFire && burnTimer <= 7)
+        if (gameObject.name != "Basement")
         {
-            burnTimer += Time.deltaTime;
 
-            Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().Play();
-            Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().Play();
-            Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().Play();
+            if (audioPlay)
+            {
+                Fire.GetComponent<AudioSource>().Play();
+                audioPlay = false;
+            }
 
-            ParticleSystem.ShapeModule shapeMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().shape;
-            shapeMod.radius = 1 + 1 * burnTimer;
+            if (onFire && burnTimer <= 7)
+            {
+                burnTimer += Time.deltaTime;
 
-            ParticleSystem.EmissionModule emisionMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().emission;
-            emisionMod.rate = 50 + 50 * burnTimer;
+                Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().Play();
+                Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().Play();
+                Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().Play();
+
+                if (!audioStarted)
+                {
+                    audioStarted = true;
+                    audioPlay = true;
+                }
 
 
-            ParticleSystem.ShapeModule shapeMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().shape;
-            shapeMod2.radius = 1 + 1 * burnTimer;
 
-            ParticleSystem.EmissionModule emisionMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().emission;
-            emisionMod2.rate = 50 + 50 * burnTimer;
+                Fire.GetComponent<AudioSource>().volume = 0.1f * burnTimer;
 
-            ParticleSystem.ShapeModule shapeMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().shape;
-            shapeMod3.radius = 1 + 1 * burnTimer;
 
-            ParticleSystem.EmissionModule emisionMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().emission;
-            emisionMod3.rate = 10 + 10 * burnTimer;
-            
+                ParticleSystem.ShapeModule shapeMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().shape;
+                shapeMod.radius = 1 + 1 * burnTimer;
+
+                ParticleSystem.EmissionModule emisionMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().emission;
+                emisionMod.rate = 50 + 50 * burnTimer;
+
+
+                ParticleSystem.ShapeModule shapeMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().shape;
+                shapeMod2.radius = 1 + 1 * burnTimer;
+
+                ParticleSystem.EmissionModule emisionMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().emission;
+                emisionMod2.rate = 50 + 50 * burnTimer;
+
+                ParticleSystem.ShapeModule shapeMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().shape;
+                shapeMod3.radius = 1 + 1 * burnTimer;
+
+                ParticleSystem.EmissionModule emisionMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().emission;
+                emisionMod3.rate = 10 + 10 * burnTimer;
+
+
+            }
+
+
+            if (!onFire)
+            {
+                if (Fire.GetComponent<AudioSource>().volume > 0)
+                {
+                    Fire.GetComponent<AudioSource>().volume -= 0.5f * Time.deltaTime;
+                }
+
+                if (Fire.GetComponent<AudioSource>().volume == 0)
+                {
+                    Fire.GetComponent<AudioSource>().Stop();
+
+                }
+
+
+            }
 
         }
-
     }
 
     

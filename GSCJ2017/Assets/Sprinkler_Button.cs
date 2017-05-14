@@ -37,9 +37,10 @@ public class Sprinkler_Button : InteractableObject
             }
             else
             {
-                theMan.PutOutFireOnFloor(0);
-                theMan.PutOutFireOnFloor(1);
-                theMan.PutOutFireOnFloor(2);
+                int ranFloor = Random.Range(0, 3);
+
+                theMan.PutOutFireOnFloor(ranFloor);
+             
 
             }
 

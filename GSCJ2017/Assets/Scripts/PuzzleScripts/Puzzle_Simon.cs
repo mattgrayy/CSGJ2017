@@ -371,10 +371,16 @@ public class Puzzle_Simon : Puzzle
 
             
 
-            if (playerInputIndex >= sequence.Count || attempts >= 4)
+            if (playerInputIndex >= sequence.Count)
             {
 
                 completePuzzle(true);
+            }
+
+
+            if(attempts >= 4)
+            {
+                completePuzzle(false);
             }
         }
 
