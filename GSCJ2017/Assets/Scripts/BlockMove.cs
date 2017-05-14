@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BlockMove : MonoBehaviour {
 
@@ -18,7 +19,8 @@ public class BlockMove : MonoBehaviour {
     [SerializeField] Transform targetObject;
     Transform previousTarget;
 
-    [SerializeField] Sprite faceHappy = null, faceNormal = null, faceWorried = null;
+    [SerializeField] Sprite faceHappy = null, faceNormal = null, faceWorried = null, faceUSB = null;
+    [SerializeField] Image faceImage;
     
     public AudioSource soundTip, SoundPush;
 
@@ -81,8 +83,7 @@ public class BlockMove : MonoBehaviour {
 
             if (rotatedDegrees >= 90)
             {
-                //soundTip.Play();
-                //CS.ShakeCamera(0.1f, 0.1f);
+                changeFace();
                 resetRotPoints();
                 rotating = false;
             }
@@ -114,6 +115,10 @@ public class BlockMove : MonoBehaviour {
                             previousTarget.GetComponent<BreakableObject>().breakObject();
                             hasUSB = false;
                             //Change face from usb face
+                            if (faceImage != null && faceWorried != null && faceHappy != null && faceNormal != null)
+                            {
+                                faceImage.sprite = faceWorried;
+                            }
                         }
                     }
                 }
@@ -193,7 +198,6 @@ public class BlockMove : MonoBehaviour {
     {
         if (!rotating)
         {
-            
             float distLeft = Vector2.Distance(contactPoint, leftCorner.position);
             float distRight = Vector2.Distance(contactPoint, rightCorner.position);
 
@@ -234,7 +238,7 @@ public class BlockMove : MonoBehaviour {
 
     public void stopRacooning()
     {
-        if (Random.Range(0,6) == 0)
+        if (Random.Range(0,3) == 0)
         {
             Instantiate(usbPrefab, transform.position, usbPrefab.rotation);
         }
@@ -243,10 +247,34 @@ public class BlockMove : MonoBehaviour {
         targetObject = racoonSpawn;
     }
 
+    void changeFace()
+    {
+        if (faceImage!= null && faceWorried != null && faceHappy != null && faceNormal != null && faceImage.sprite != faceUSB)
+        {
+            int faceRand = Random.Range(0, 15);
+            if (faceRand == 0)
+            {
+                faceImage.sprite = faceWorried;
+            }
+            else if (faceRand == 1)
+            {
+                faceImage.sprite = faceHappy;
+            }
+            else
+            {
+                faceImage.sprite = faceNormal;
+            }
+        }
+    }
+
     void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Interactable" && col.GetComponent<USB_Pickup>())
         {
+            if (faceImage != null && faceUSB != null)
+            {
+                faceImage.sprite = faceUSB;
+            }
             hasUSB = true;
             // change screen to usb
             Destroy(col.gameObject);

@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
             m.enabled = false;
         spawned = false;
         canvas.SetActive(false);
-        transform.position = spawnPoint.transform.position;
+        transform.position = spawnPoint.transform.position + new Vector3(0,0,playerIndex*0.1f);
 
     }
 
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
                         m.enabled = false;
                     canvas.SetActive(false);
                     spawned = false;
-                    transform.position = spawnPoint.transform.position;
+                    transform.position = spawnPoint.transform.position + new Vector3(0, 0, playerIndex * 0.1f);
                     PuzzleManager.m_instance.setPuzzleDropout(playerIndex);
                 }
                 else
