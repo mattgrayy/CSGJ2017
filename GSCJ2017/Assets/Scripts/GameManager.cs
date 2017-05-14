@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0;
-    int eventReserve = 1;
+    [SerializeField] float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0, chanceTimer = 0;
+    [SerializeField] int eventReserve = 1;
     public float eventThreshhold = 120f;
     public GameObject roofPiece = null, boom = null, target = null;
 
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] int globalScore = 0;
     [SerializeField] float globalStress = 0;
-    bool stressOut = false, eventsOnCoolDown = true;
+    bool stressOut = false, eventsOnCoolDown = false;
 
     public static GameManager m_instance = null;
 
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
     {
         worldTimer += Time.deltaTime;
         newEventTimer += Time.deltaTime;
+        chanceTimer += Time.deltaTime;
 
         if (newEventTimer >= eventThreshhold)
         {
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour {
         }
 
 
-        if (eventReserve > 0 && !eventsOnCoolDown)
+        if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
         {
             //there is a chance for an event to trigger
             int eventChance = Random.Range(0, 100);
@@ -99,8 +100,11 @@ public class GameManager : MonoBehaviour {
 
                 default:
                     //do nothing
+                    
                     break;
             }
+
+            chanceTimer = 0;
 
         }
 

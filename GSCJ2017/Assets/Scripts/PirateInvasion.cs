@@ -10,11 +10,11 @@ public class PirateInvasion : MonoBehaviour {
     bool entranceComplete = false;
     
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
 
         Instantiate(explosion, target.transform.position, Quaternion.identity);
-        roofPiece.SetActive(false);
+        roofPiece.gameObject.SetActive(false);
         
 	}
 
