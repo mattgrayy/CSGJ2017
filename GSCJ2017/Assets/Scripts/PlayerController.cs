@@ -28,45 +28,15 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         player = ReInput.players.GetPlayer(playerIndex);
-        Debug.Log(player);
         rb = GetComponent<Rigidbody>();
-        foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
-            m.enabled = false;
-        spawned = false;
 
-        //canvas.SetActive(false);
-        transform.position = spawnPoint.transform.position;
-
-        //canvas.SetActive(false);
         transform.position = spawnPoint.transform.position + new Vector3(0,0,playerIndex*0.1f);
-
-
     }
 
     void FixedUpdate()
     {
         if (!puzzled)
         {
-            if (player.GetButtonDown("Start"))
-            {
-                if (spawned)
-                {
-                    foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
-                        m.enabled = false;
-                    //canvas.SetActive(false);
-                    spawned = false;
-                    transform.position = spawnPoint.transform.position + new Vector3(0, 0, playerIndex * 0.1f);
-                    PuzzleManager.m_instance.setPuzzleDropout(playerIndex);
-                }
-                else
-                {
-                    foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
-                        m.enabled = true;
-                    spawned = true;
-                    //canvas.SetActive(true);
-                    PuzzleManager.m_instance.setPuzzleIdle(playerIndex);
-                }
-            }
             if (spawned)
             {
                 Vector3 currentRotation = transform.eulerAngles;
@@ -88,6 +58,34 @@ public class PlayerController : MonoBehaviour {
                 {
                     target = 0;
                 }
+            }
+        }
+    }
+    
+    void Update()
+    {
+        if (!puzzled)
+        {
+            if (player.GetButtonDown("Start"))
+            {
+                if (spawned)
+                {
+                    foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
+                        m.enabled = false;
+                    spawned = false;
+                    transform.position = spawnPoint.transform.position + new Vector3(0, 0, playerIndex * 0.1f);
+                    PuzzleManager.m_instance.setPuzzleDropout(playerIndex);
+                }
+                else
+                {
+                    foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
+                        m.enabled = true;
+                    spawned = true;
+                    PuzzleManager.m_instance.setPuzzleIdle(playerIndex);
+                }
+            }
+            if (spawned)
+            {
                 if (player.GetButtonDown("Interact"))
                 {
 
@@ -97,18 +95,6 @@ public class PlayerController : MonoBehaviour {
                     }
                 }
             }
-        }
-    }
-    
-    void Update()
-    {
-        if (player.GetButtonDown("B"))
-        {
-            Debug.Log("B");
-        }
-        if (player.GetButtonDown("Y"))
-        {
-            Debug.Log("Y");
         }
     }
     

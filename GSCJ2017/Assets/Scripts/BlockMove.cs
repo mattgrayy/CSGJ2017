@@ -110,7 +110,7 @@ public class BlockMove : MonoBehaviour {
                     // random value should be relative to game time or something
                     if (hasUSB || Random.Range(0, 8) == 0)
                     {
-                        if (previousTarget.GetComponent<BreakableObject>())
+                        if (previousTarget.GetComponent<BreakableObject>() && GameManager.m_instance.gameStarted)
                         {
                             previousTarget.GetComponent<BreakableObject>().breakObject();
                             hasUSB = false;
@@ -204,12 +204,10 @@ public class BlockMove : MonoBehaviour {
             if (distLeft > distRight)
             {
                 rotatePoint = leftCorner;
-                //lvlMan.AddScore(10, 2);
             }
             else
             {
                 rotatePoint = rightCorner;
-                //lvlMan.AddScore(10, 1);
             }
             rotatedDegrees = 0;
             rotating = true;
@@ -269,7 +267,7 @@ public class BlockMove : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Interactable" && col.GetComponent<USB_Pickup>())
+        if (col.tag == "Interactable" && col.GetComponent<USB_Pickup>() && GameManager.m_instance.gameStarted)
         {
             if (faceImage != null && faceUSB != null)
             {
