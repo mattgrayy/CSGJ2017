@@ -6,6 +6,7 @@ public class USBEES : MonoBehaviour
 
     [SerializeField]
     GameObject Wings;
+    [SerializeField] GameObject props;
     [SerializeField]
     GameObject USB;
 
@@ -38,12 +39,15 @@ public class USBEES : MonoBehaviour
     void Start()
     {
         USB.transform.parent = Wings.transform;
-        USB.GetComponent<BoxCollider>().enabled=false;
+        USB.GetComponent<BoxCollider>().enabled = false;
+
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        props.transform.Rotate(0, 0, 1);
         if (Random.Range(0, 2) == 0)
         {
             USGO = true;
@@ -51,58 +55,77 @@ public class USBEES : MonoBehaviour
 
         if (USGO)
         {
+
+            if (Wings.transform.position.x < window.transform.position.x && !windowB)
+            {
+                windowB = true;
+
+            }
+            if (Wings.transform.position.x >= window.transform.position.x && windowB)
+            {
+                windowB = false;
+
+            }
+
+            if (!GoHome)
+            {
+                Wings.transform.Translate(-1 * Time.deltaTime, 0, 0);
+            }
+
+            if (GoHome)
+            {
+                if (Wings.transform.position.x < beeSpawn.transform.position.x)
+                {
+                    
+                    Wings.transform.Translate(1 * Time.deltaTime, 0, 0);
+                }
+            }
+
             if (Wings.transform.position.x > farLeft.transform.position.x)
             {
-                if (Wings.transform.position.x >= window.transform.position.x&&!windowB)
-                {
-                    Wings.transform.Translate(-1 * Time.deltaTime, 0, 0);
-                }
+               
+               
 
-                if (Wings.transform.position.x <= window.transform.position.x)
-                {
-                    windowB = true;
-                }
+              
 
                 if (windowB)
                 {
-                
-                    if (Wings.transform.position.y <= roomtop.transform.position.y)
+                    if (Wings.transform.position.y < roomtop.transform.position.y&&!TopB)
                     {
-                        if (!TopB)
-                        {
-                            Wings.transform.Translate(-1 * Time.deltaTime, 1 * Time.deltaTime, 0);
-                        }
-                        f(Wings.transform.position.y == roomtop.transform.position.y)
-                    {
-                            TopB = true;
-                            BottomB = false;
-                        }
+                        Wings.transform.Translate(0, Random.Range(0.5f,1) * Time.deltaTime, 0);
+                      
                     }
-
-                    if (TopB && !BottomB)
+                    if (Wings.transform.position.y>= roomtop.transform.position.y && !TopB)
                     {
-                        Wings.transform.Translate(-1 * Time.deltaTime, -1 * Time.deltaTime, 0);
+                        TopB = true;
+                        BottomB = false;
                     }
-
-
-                    //if (Wings.transform.position.y > roomBottom.transform.position.y)
-                    //{
-                    //    if (!BottomB)
-                    //    {
-                    //        Wings.transform.Translate(-1 * Time.deltaTime, 1 * Time.deltaTime, 0);
-                    //    }
-                    //}
-
-                    i
-
-                    if (Wings.transform.position.y == roomBottom.transform.position.y)
+                    if (TopB && !BottomB && Wings.transform.position.y > roomBottom.transform.position.y)
                     {
-                        BottomB = true;
+                        Wings.transform.Translate(0, - Random.Range(0.5f, 1) * Time.deltaTime, 0);
+                        
+                    }
+                    if (TopB && !BottomB && Wings.transform.position.y <= roomBottom.transform.position.y)
+                    {
                         TopB = false;
+                        BottomB = true;
                     }
+
+
+
 
                 }
             }
+            else if (Wings.transform.position.x <= farLeft.transform.position.x&&!GoHome)
+            {
+                GoHome = true;
+            }
+                
+
+            
         }
     }
-}
+}       
+            
+        
+    

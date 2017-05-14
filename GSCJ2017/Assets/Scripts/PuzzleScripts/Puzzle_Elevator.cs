@@ -28,6 +28,10 @@ public class Puzzle_Elevator : Puzzle
 	// Update is called once per frame
     void Update ()
     {
+        if(player.GetButtonDown("B"))
+        {
+            completePuzzle(true);
+        }
         if(player != null)
         {
            
