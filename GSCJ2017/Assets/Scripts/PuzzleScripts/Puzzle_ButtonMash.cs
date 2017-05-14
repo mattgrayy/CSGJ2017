@@ -5,15 +5,18 @@ using UnityEngine.UI;
 public class Puzzle_ButtonMash : Puzzle {
 
     
-    int mashed = 0;
-    bool sequencePlaying = true;
+    int mashed = 0, attempts = 0;
+    public int difficulty = 10;
+    public bool sequencePlaying = true;
     bool isSpam = true;
+    bool playerInputDisabled = true;
 
-    public Image spam = null, safe = null, save = null, delete = null;
+    public Image spam = null, safe = null, wrong = null;
 
     void Start()
     {
         mashed = 0;
+        attempts = 0;
         sequencePlaying = true;
     }
 
@@ -24,9 +27,17 @@ public class Puzzle_ButtonMash : Puzzle {
             //select spam or safe
             int emailType = Random.Range(0, 6);
             if (emailType == 0)
+            {
                 isSpam = false;
+                safe.gameObject.SetActive(true);
+                spam.gameObject.SetActive(false);
+            }
             else if (emailType >= 1)
+            {
                 isSpam = true;
+                safe.gameObject.SetActive(false);
+                spam.gameObject.SetActive(true);
+            }
 
             if (player.GetButtonDown("Interact"))
             {
@@ -57,15 +68,23 @@ public class Puzzle_ButtonMash : Puzzle {
     void correctButton()
     {
         mashed++;
-        if (mashed == 20)
+        if (mashed == difficulty)
         {
-
             completePuzzle(true);
         }
     }
 
     void wrongButton()
     {
-
+        mashed = 0;
+        attempts++;
+        if (attempts >= 4)
+            completePuzzle(false);
+        else
+        {
+            safe.gameObject.SetActive(false);
+            spam.gameObject.SetActive(false);
+            wrong.gameObject.SetActive(true);
+        }
     }
 }
