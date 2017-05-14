@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour {
     
 
     public List<FloorManager> floorManagers = new List<FloorManager>();
+    [SerializeField] Image failingImage;
 
     [SerializeField] int globalScore = 0;
     [SerializeField] float globalStress = 0;
@@ -32,7 +34,6 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
-
         worldTimer += Time.deltaTime;
         newEventTimer += Time.deltaTime;
 
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour {
         {
             newEventTimer = 0;
             eventReserve++;
-
         }
 
         if (eventsOnCoolDown)
@@ -51,14 +51,12 @@ public class GameManager : MonoBehaviour {
             {
                 eventsOnCoolDown = false;
                 eventCoolDown = 0;
-
             }
         }
 
 
         if (eventReserve > 0 && !eventsOnCoolDown)
         {
-
             //there is a chance for an event to trigger
             int eventChance = Random.Range(0, 100);
 
@@ -92,22 +90,28 @@ public class GameManager : MonoBehaviour {
                 default:
                     //do nothing
                     break;
-
             }
 
         }
 
 
-
-
-
         if (stressOut)
         {
             globalStress = Mathf.Clamp(globalStress += Time.deltaTime, 0, 100);
+
+            if (failingImage.color.a < 1)
+            {
+                failingImage.color += new Color(0, 0, 0, 0.001f);
+            }
         }
         else
         {
             globalStress = Mathf.Clamp(globalStress -= Time.deltaTime, 0, 100);
+
+            if (failingImage.color.a > 0)
+            {
+                failingImage.color -= new Color(0, 0, 0, 0.001f);
+            }
         }
     }
 
@@ -141,6 +145,11 @@ public class GameManager : MonoBehaviour {
     {
         globalStress += _stressToAdd;
         checkStressLevels();
+
+        if (stressOut)
+        {
+            GetComponent<CameraShake2>().ShakeCamera(0.1f, globalStress / 1000);
+        }
     }
 
     void checkStressLevels()
