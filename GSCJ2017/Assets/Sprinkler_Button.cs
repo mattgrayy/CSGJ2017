@@ -31,7 +31,7 @@ public class Sprinkler_Button : InteractableObject
         {
             if (!triggerAllFloors)
             {
-                Debug.Log(targetFloor);
+               
                 theMan.PutOutFireOnFloor(targetFloor);
                 
             }
@@ -80,7 +80,7 @@ public class Sprinkler_Button : InteractableObject
                
                 targetFloor = i;
                 theMan.StartSprinklers(i);
-                Debug.Log(targetFloor);
+               
 
             }
 
