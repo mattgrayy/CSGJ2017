@@ -68,6 +68,9 @@ public class GameManager : MonoBehaviour {
                     GameObject eventt1 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
                     eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
                     eventt1.GetComponent<AlienInvasion>().target = target.transform;
+
+                    eventReserve--;
+                    eventsOnCoolDown = true;
                     break;
 
                 case 1:
@@ -77,21 +80,22 @@ public class GameManager : MonoBehaviour {
 
                     GameObject eventt2 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
                     eventt2.GetComponent<PirateInvasion>().roofPiece = roofPiece;
+
+                    eventReserve--;
+                    eventsOnCoolDown = true;
                     break;
 
                 case 2:
-                    //Fire
-
-
-                    break;
-
                 case 3:
-                    //Fire
-                    break;
-
                 case 4:
                     //Fire
+                    int ranFloor = Random.Range(0, 3);
+                    floorManagers[ranFloor].onFire = true;
+
+                    eventReserve--;
+                    eventsOnCoolDown = true;
                     break;
+
 
                 default:
                     //do nothing
