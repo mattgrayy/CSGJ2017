@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class FloorManager : MonoBehaviour {
 
-    [SerializeField] List<BreakableObject> jobs = new List<BreakableObject>();
+    public List<BreakableObject> jobs = new List<BreakableObject>();
     [SerializeField] List<Transform> nullJobs = new List<Transform>();
 
-    public bool onFire = false, TimerStart = false, burning = false;
+    public bool onFire = false, TimerStart = false;
     [SerializeField] GameObject sprinklerSystem, Fire;
-    float burnTimer = 0;
+    public float burnTimer = 0;
     
 
 
@@ -88,6 +88,32 @@ public class FloorManager : MonoBehaviour {
         {
             //and put out the fire after a timer
             onFire = false;
+            Fire.gameObject.SetActive(false);
+
+
+            burnTimer = 0;
+
+            ParticleSystem.ShapeModule shapeMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().shape;
+            shapeMod.radius = 1;
+
+            ParticleSystem.EmissionModule emisionMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().emission;
+            emisionMod.rate = 50;
+
+            ParticleSystem.ShapeModule shapeMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().shape;
+            shapeMod2.radius = 1;
+
+            ParticleSystem.EmissionModule emisionMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().emission;
+            emisionMod2.rate = 50;
+
+            ParticleSystem.ShapeModule shapeMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().shape;
+            shapeMod3.radius = 1;
+
+            ParticleSystem.EmissionModule emisionMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().emission;
+            emisionMod3.rate = 10;
+
+
+
+
 
             //also get all the breakable object on the floor and break them all!!!
             foreach (BreakableObject obj in jobs)
@@ -113,23 +139,34 @@ public class FloorManager : MonoBehaviour {
 
 
 
-        if (onFire)
+        if (onFire && burnTimer <= 7)
         {
-
+            burnTimer += Time.deltaTime;
 
             Fire.gameObject.SetActive(true);
 
-            //player cant fix things either
+            ParticleSystem.ShapeModule shapeMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().shape;
+            shapeMod.radius = 1 + 1 * burnTimer;
+
+            ParticleSystem.EmissionModule emisionMod = Fire.transform.FindChild("Fires").GetComponent<ParticleSystem>().emission;
+            emisionMod.rate = 50 + 50 * burnTimer;
 
 
+            ParticleSystem.ShapeModule shapeMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().shape;
+            shapeMod2.radius = 1 + 1 * burnTimer;
 
-        }
-        else
-        {
+            ParticleSystem.EmissionModule emisionMod2 = Fire.transform.FindChild("Sparks").GetComponent<ParticleSystem>().emission;
+            emisionMod2.rate = 50 + 50 * burnTimer;
 
-            Fire.gameObject.SetActive(false);
+            ParticleSystem.ShapeModule shapeMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().shape;
+            shapeMod3.radius = 1 + 1 * burnTimer;
+
+            ParticleSystem.EmissionModule emisionMod3 = Fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().emission;
+            emisionMod3.rate = 10 + 10 * burnTimer;
             
+
         }
+        
 
 
 

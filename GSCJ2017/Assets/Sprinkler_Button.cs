@@ -11,7 +11,7 @@ public class Sprinkler_Button : InteractableObject
     float timer = 0;
     bool startTimer = false, triggerAllFloors = false;
 
-    int targetFloor = 7;
+   int targetFloor = 7;
 
 
     // Use this for initialization
@@ -31,11 +31,9 @@ public class Sprinkler_Button : InteractableObject
         {
             if (!triggerAllFloors)
             {
+                Debug.Log(targetFloor);
                 theMan.PutOutFireOnFloor(targetFloor);
-                if (targetFloor != 0)
-                {
-                    theMan.PutOutFireOnFloor(targetFloor - 1);
-                }
+                
             }
             else
             {
@@ -62,6 +60,7 @@ public class Sprinkler_Button : InteractableObject
     override public void interact(int interactedPlayer)
     {
         startTimer = true;
+        targetFloor = 7;
 
         if (startTimer == true)
         {
@@ -78,10 +77,10 @@ public class Sprinkler_Button : InteractableObject
         {
             if (floor.onFire)
             {
-
+               
                 targetFloor = i;
                 theMan.StartSprinklers(i);
-
+                Debug.Log(targetFloor);
 
             }
 
@@ -101,8 +100,7 @@ public class Sprinkler_Button : InteractableObject
 
         }
 
-        targetFloor = 7;
-
+        
     }
 
 
