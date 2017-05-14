@@ -48,7 +48,14 @@ public class USBEES : MonoBehaviour
     void Update()
     {
         props.transform.Rotate(0, 0, 1);
-        if (Random.Range(0, 2) == 0)
+
+        if (GoHome&& Wings.transform.position.x >= beeSpawn.transform.position.x)
+        {
+            USGO=false;
+        }
+       
+
+        if (Random.Range(0, 2) == 0 && !USGO)
         {
             USGO = true;
         }
@@ -90,9 +97,13 @@ public class USBEES : MonoBehaviour
 
                 if (windowB)
                 {
+                    if(TopB||BottomB)
+                    {
+                        Wings.transform.Translate(0, Random.Range(-3f, 3.5f) * Time.deltaTime, 0);
+                    }
                     if (Wings.transform.position.y < roomtop.transform.position.y&&!TopB)
                     {
-                        Wings.transform.Translate(0, Random.Range(0.5f,1) * Time.deltaTime, 0);
+                       
                       
                     }
                     if (Wings.transform.position.y>= roomtop.transform.position.y && !TopB)
@@ -102,7 +113,7 @@ public class USBEES : MonoBehaviour
                     }
                     if (TopB && !BottomB && Wings.transform.position.y > roomBottom.transform.position.y)
                     {
-                        Wings.transform.Translate(0, - Random.Range(0.5f, 1) * Time.deltaTime, 0);
+                       // Wings.transform.Translate(0, - Random.Range(0.5f, 3.5f) * Time.deltaTime, 0);
                         
                     }
                     if (TopB && !BottomB && Wings.transform.position.y <= roomBottom.transform.position.y)

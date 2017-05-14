@@ -380,7 +380,7 @@ public class Puzzle_Simon : Puzzle
 
             if(attempts >= 4)
             {
-                completePuzzle(false);
+                completePuzzle(false,0);
             }
         }
 

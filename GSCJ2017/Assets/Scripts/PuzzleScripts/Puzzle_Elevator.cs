@@ -30,7 +30,7 @@ public class Puzzle_Elevator : Puzzle
     {
         if(player.GetButtonDown("B"))
         {
-            completePuzzle(true);
+            completePuzzle(false,0);
         }
         if(player != null)
         {
