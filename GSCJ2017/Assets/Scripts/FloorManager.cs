@@ -6,8 +6,9 @@ public class FloorManager : MonoBehaviour {
     [SerializeField] List<BreakableObject> jobs = new List<BreakableObject>();
     [SerializeField] List<Transform> nullJobs = new List<Transform>();
 
-    public bool onFire = false, TimerStart = false;
+    public bool onFire = false, TimerStart = false, burning = false;
     [SerializeField] GameObject sprinklerSystem, Fire;
+    float burnTimer = 0;
     
 
 
@@ -103,6 +104,40 @@ public class FloorManager : MonoBehaviour {
     {
         sprinklerSystem.SetActive(false);
     }
+
+
+
+
+    void Update()
+    {
+
+
+
+        if (onFire)
+        {
+
+
+            Fire.gameObject.SetActive(true);
+
+            //player cant fix things either
+
+
+
+        }
+        else
+        {
+
+            Fire.gameObject.SetActive(false);
+            
+        }
+
+
+
+
+
+
+    }
+
     
 
 

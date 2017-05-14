@@ -4,10 +4,9 @@ using System.Collections;
 public class WorldEventManager : MonoBehaviour {
 
 
+    float eventTimer = 0;
 
-
-
-
+    
 
 
 	// Use this for initialization
@@ -17,6 +16,10 @@ public class WorldEventManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
+        eventTimer += Time.deltaTime;
+
 	
 	}
 }
