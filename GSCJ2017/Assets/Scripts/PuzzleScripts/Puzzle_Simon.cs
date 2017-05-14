@@ -13,7 +13,7 @@ public class Puzzle_Simon : Puzzle
     //sequence is done on the D-pad
     [SerializeField] List<int> sequence = new List<int>();
     public bool sequencePlaying = true, startTimerFInished = false;
-    public int sequenceIndex = 0;
+    public int sequenceIndex = 0, attempts = 0;
     public float sequenceTimer = 0, startTimer = 0;
 
     bool playerInputDisabled = true;
@@ -188,6 +188,7 @@ public class Puzzle_Simon : Puzzle
 
                     //this is wrong start again
                     upLightPlayerWrong.gameObject.SetActive(true);
+                    attempts++;
                 }
 
             }
@@ -198,6 +199,7 @@ public class Puzzle_Simon : Puzzle
                 {
                     sequencePlaying = true;
                     playerInputDisabled = true;
+                   
 
                 }
                                 
@@ -238,7 +240,7 @@ public class Puzzle_Simon : Puzzle
 
                     //this is wrong start again
                     downLightPlayerWrong.gameObject.SetActive(true);
-                                       
+                    attempts++;
                 }
 
             }
@@ -289,6 +291,7 @@ public class Puzzle_Simon : Puzzle
 
                     //this is wrong start again
                     rightLightPlayerWrong.gameObject.SetActive(true);
+                    attempts++;
                 }
 
             }
@@ -341,6 +344,7 @@ public class Puzzle_Simon : Puzzle
 
                     //this is wrong start again
                     leftLightPlayerWrong.gameObject.SetActive(true);
+                    attempts++;
                 }
 
             }
@@ -365,17 +369,9 @@ public class Puzzle_Simon : Puzzle
                 leftLightPlayerWrong.gameObject.SetActive(false);
             }
 
+            
 
-
-
-
-
-
-
-
-
-
-            if (playerInputIndex >= sequence.Count)
+            if (playerInputIndex >= sequence.Count || attempts >= 4)
             {
 
                 completePuzzle(true);
