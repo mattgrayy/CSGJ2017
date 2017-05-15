@@ -61,7 +61,7 @@ public class Puzzle_Elevator : Puzzle
 
             if (player.GetButtonDown("Interact"))
             {
-                myCreator.GetComponent<Elevator>().ell = floorchoice;
+              //  myCreator.GetComponent<Elevator>().ell = floorchoice;
                 myCreator.GetComponent<Elevator>().CallElevator(floorchoice);
              
                 floornum.text = floorchoice.ToString();
