@@ -13,6 +13,8 @@ public class Puzzle_ButtonMash : Puzzle {
     bool playerInputDisabled = true;
     float timer = 0;
 
+    int inbox ;
+
     public Image spam = null, safe = null, wrong = null, correct = null;
     public Text number = null;
 
@@ -23,6 +25,7 @@ public class Puzzle_ButtonMash : Puzzle {
         attempts = 0;
         sequencePlaying = true;
         number.text = mashed.ToString();
+        inbox = difficulty;
     }
 
     void Update()
@@ -84,7 +87,8 @@ public class Puzzle_ButtonMash : Puzzle {
     void correctButton()
     {
         mashed++;
-        number.text = mashed.ToString();
+        inbox--;
+        number.text = inbox.ToString();
         correct.gameObject.SetActive(true);
         timer = 0.3f;
         //right.gameObject.SetActive(true);
