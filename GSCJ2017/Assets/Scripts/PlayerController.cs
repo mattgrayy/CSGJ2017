@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour {
                     foreach (MeshRenderer m in GetComponentsInChildren<MeshRenderer>())
                         m.enabled = false;
                     spawned = false;
+                    rb.velocity = Vector3.zero;
                     transform.position = spawnPoint.transform.position + new Vector3(0, 0, playerIndex * 0.1f);
                     PuzzleManager.m_instance.setPuzzleDropout(playerIndex);
                 }
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour {
                     if (interaction != null)
                     {
                         interaction.GetComponent<InteractableObject>().interact(playerIndex);
+                        rb.velocity = Vector3.zero;
                     }
                 }
             }
