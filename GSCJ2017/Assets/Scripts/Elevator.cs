@@ -5,30 +5,35 @@ using Rewired;
 
 public class Elevator : InteractableObject
 {
-
-    [SerializeField]List<GameObject> Top;
+    [SerializeField] AudioClip dingSound, movingSound;
+    [SerializeField] List<GameObject> Top;
     [SerializeField] List<GameObject> Bottom;
-    [SerializeField]
-    public int currentLOC;
-    [SerializeField]
-   bool MovingUp;
-    [SerializeField]
-    bool MovingDown;
+    [SerializeField] public int currentLOC;
+    [SerializeField] bool MovingUp;
+    [SerializeField] bool MovingDown;
 
     public int ell;
 
     public bool puzzleOpen = false;
    
-   [SerializeField] int floorchoice;
+    [SerializeField] int floorchoice;
     public bool elevatorChild = false;
 
     void ElevatorUp()
     {
+        if (!GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Play();
+        }
 
         transform.Translate(0, 2 * Time.deltaTime, 0);
     }
     void ElevatorDown()
     {
+        if (!GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Play();
+        }
 
         transform.Translate(0, -2 * Time.deltaTime, 0);
     }
@@ -105,6 +110,9 @@ public class Elevator : InteractableObject
             {
                 MovingUp = false;
                 currentLOC = ell;
+
+                GetComponent<AudioSource>().Stop();
+                GetComponent<AudioSource>().PlayOneShot(dingSound);
             }
         }
         if (MovingDown)
@@ -113,6 +121,9 @@ public class Elevator : InteractableObject
             {
                 MovingDown = false;
                 currentLOC = ell;
+
+                GetComponent<AudioSource>().Stop();
+                GetComponent<AudioSource>().PlayOneShot(dingSound);
             }
         }
     }

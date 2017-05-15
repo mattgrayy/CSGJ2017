@@ -83,6 +83,10 @@ public class BlockMove : MonoBehaviour {
 
             if (rotatedDegrees >= 90)
             {
+                if (!isRacoon)
+                {
+                    GetComponent<AudioSource>().Play();
+                }
                 changeFace();
                 resetRotPoints();
                 rotating = false;
