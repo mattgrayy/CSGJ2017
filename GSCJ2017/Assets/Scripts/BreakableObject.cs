@@ -9,6 +9,7 @@ public class BreakableObject : InteractableObject {
 
     bool broken = false;
     bool inUse = false;
+    bool inFixed = false;
 
     public void breakObject()
     {
@@ -44,9 +45,10 @@ public class BreakableObject : InteractableObject {
 
     override public void interact(int interactedPlayer)
     {
-        if (broken)
+        if (broken && !inFixed)
         {
             PuzzleManager.m_instance.loadPuzzle(interactedPlayer, this);
+            inFixed = true;
         }
     }
     override public void completedInteraction(bool outcome)
@@ -54,6 +56,8 @@ public class BreakableObject : InteractableObject {
         if (outcome)
         {
             fixObject();
+            
         }
+        inFixed = false;
     }
 }

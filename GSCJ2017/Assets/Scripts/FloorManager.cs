@@ -173,8 +173,7 @@ public class FloorManager : MonoBehaviour {
                     audioPlay = true;
                 }
 
-
-
+                
                 Fire.GetComponent<AudioSource>().volume = 0.1f * burnTimer;
 
 

@@ -120,7 +120,7 @@ public class BlockMove : MonoBehaviour {
                         previousTarget = targetObject;
                         targetObject = null;
                         // random value should be relative to game time or something
-                        if (hasUSB || Random.Range(0, 4) == 0)
+                        if (hasUSB || Random.Range(0, 2) == 0)
                         {
                             if (previousTarget.GetComponent<BreakableObject>() && GameManager.m_instance.gameStarted)
                             {

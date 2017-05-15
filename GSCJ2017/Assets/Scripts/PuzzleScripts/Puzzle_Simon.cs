@@ -172,7 +172,7 @@ public class Puzzle_Simon : Puzzle
 
 
 
-            if (player.GetButtonDown("Up"))
+            if (player.GetButtonDown("Up") && !player.GetButtonDown("Down") && !player.GetButtonDown("Left") && !player.GetButtonDown("Right"))
             {
 
                 if (sequence[playerInputIndex] == 0)
@@ -224,7 +224,7 @@ public class Puzzle_Simon : Puzzle
 
 
 
-            if (player.GetButtonDown("Down"))
+            if (player.GetButtonDown("Down") && !player.GetButtonDown("Up") && !player.GetButtonDown("Left") && !player.GetButtonDown("Right"))
             {
 
                 if (sequence[playerInputIndex] == 1)
@@ -276,7 +276,7 @@ public class Puzzle_Simon : Puzzle
 
 
 
-            if (player.GetButtonDown("Right"))
+            if (player.GetButtonDown("Right") && !player.GetButtonDown("Down") && !player.GetButtonDown("Left") && !player.GetButtonDown("Up"))
             {
 
                 if (sequence[playerInputIndex] == 2)
@@ -329,7 +329,7 @@ public class Puzzle_Simon : Puzzle
 
 
 
-            if (player.GetButtonDown("Left"))
+            if (player.GetButtonDown("Left") && !player.GetButtonDown("Down") && !player.GetButtonDown("Up") && !player.GetButtonDown("Right"))
             {
 
                 if (sequence[playerInputIndex] == 3)

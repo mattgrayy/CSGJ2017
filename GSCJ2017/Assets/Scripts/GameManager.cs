@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0, chanceTimer = 0;
     [SerializeField] int eventReserve = 0;
-    public float eventThreshhold = 120f;
+    public float eventThreshhold = 30f;
     public GameObject roofPiece = null, boom = null, target = null;
     
 
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
 
     public int globalScore = 0;
     public float globalStress = 0;
-    bool stressOut = false, eventsOnCoolDown = false;
+    bool stressOut = false, eventsOnCoolDown = true;
 
     public static GameManager m_instance = null;
 
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
             if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
             {
                 //there is a chance for an event to trigger
-                int eventChance = Random.Range(0, 100);
+                int eventChance = Random.Range(0, 10);
 
                 switch (eventChance)
                 {
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour {
 
                 if (failingImage.color.a < 1)
                 {
-                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 500));
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 300));
                 }
 
                 if (globalStress == 100 && endGameTimer <=0)
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour {
 
                 if (failingImage.color.a > 0)
                 {
-                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 500));
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 300));
                 }
             }
 
