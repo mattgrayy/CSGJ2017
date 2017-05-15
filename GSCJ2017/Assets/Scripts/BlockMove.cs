@@ -316,7 +316,7 @@ public class BlockMove : MonoBehaviour {
                 invaderControlerP.recalInvaders();
                 invaderControlerP.abductedPlayer = col.transform;
 
-                int i = Random.Range(0, 6);
+                int i = Random.Range(0, 4);
 
                 switch(i)
                 {

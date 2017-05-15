@@ -7,7 +7,7 @@ using Rewired;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0, chanceTimer = 0;
-    [SerializeField] int eventReserve = 1;
+    [SerializeField] int eventReserve = 0;
     public float eventThreshhold = 120f;
     public GameObject roofPiece = null, boom = null, target = null;
     
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
                 //there is a chance for an event to trigger
                 int eventChance = Random.Range(0, 100);
 
-                switch (1)
+                switch (eventChance)
                 {
                     /*
                     case 0:
