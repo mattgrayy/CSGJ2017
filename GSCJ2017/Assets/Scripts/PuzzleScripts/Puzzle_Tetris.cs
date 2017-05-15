@@ -123,7 +123,7 @@ public class Puzzle_Tetris : Puzzle {
 		//puzzle in here
 
         
-		if (player.GetButtonDown("Right"))
+		if (player.GetButtonDown("Right") || player.GetAxis("Horizontal") > 0)
 		{
             
             targetRotation += 90;
@@ -136,7 +136,7 @@ public class Puzzle_Tetris : Puzzle {
             }
         }
 
-        if (player.GetButtonDown("Left"))
+        if (player.GetButtonDown("Left") || player.GetAxis("Horizontal") < 0)
         {
             
             targetRotation -= 90;

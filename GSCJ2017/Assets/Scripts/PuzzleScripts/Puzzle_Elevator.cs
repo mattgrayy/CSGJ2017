@@ -35,7 +35,7 @@ public class Puzzle_Elevator : Puzzle
         if(player != null)
         {
            
-            if (player.GetButtonDown("Up"))
+            if (player.GetButtonDown("Up") || player.GetAxis("Vertical") > 0)
             {
                 floorchoice += 1;
 
@@ -46,7 +46,7 @@ public class Puzzle_Elevator : Puzzle
                 floornum.text = floorchoice.ToString();
             }
 
-            if (player.GetButtonDown("Down"))
+            if (player.GetButtonDown("Down") || player.GetAxis("Vertical") < 0)
 
             {
                 floorchoice -= 1;

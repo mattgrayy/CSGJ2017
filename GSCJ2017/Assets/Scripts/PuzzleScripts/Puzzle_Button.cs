@@ -11,7 +11,7 @@ public class Puzzle_Button : Puzzle {
 
 	void Update ()
     {
-        if (player.GetButtonDown("Up") && !switched)
+        if ((player.GetButtonDown("Up") || player.GetAxis("Vertical") > 0) && !switched)
         {
             switched = true;
 
