@@ -97,7 +97,8 @@ public class USBEES : MonoBehaviour
         if (Wings.transform.position.x <= farLeft.transform.position.x && !GoHome)
         {
             GoHome = true;
-        }
+                USB.transform.Rotate(0, 180, 0);
+            }
 
         if (Random.Range(0, 2) == 0 && !USGO)
         {
@@ -107,6 +108,7 @@ public class USBEES : MonoBehaviour
 
             if (USGO)
             {
+
                 movedelay -= Time.deltaTime;
 
                 if(movedelay<0)
@@ -129,7 +131,8 @@ public class USBEES : MonoBehaviour
 
                 if (GoHome)
                 {
-                    if (Wings.transform.position.x < beeSpawn.transform.position.x)
+                        
+                        if (Wings.transform.position.x < beeSpawn.transform.position.x)
                     {
 
                         Wings.transform.Translate(1 * Time.deltaTime, 0, 0);
