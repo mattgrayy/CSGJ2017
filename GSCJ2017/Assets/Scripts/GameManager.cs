@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] Image startScreen;
     [SerializeField] Image endScreen;
-    float endGameTimer = 0;
+    public float endGameTimer = 0;
 
     public bool gameStarted = false;
 
@@ -131,9 +131,9 @@ public class GameManager : MonoBehaviour {
                     failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 500));
                 }
 
-                if (globalStress == 100)
+                if (globalStress == 100 && endGameTimer <=0)
                 {
-                    endGameTimer = 5;
+                    endGameTimer = 3;
                     endScreen.gameObject.SetActive(true);
                 }
             }
@@ -147,12 +147,14 @@ public class GameManager : MonoBehaviour {
                 }
             }
 
-            if (endGameTimer > 1)
+            if (endGameTimer > 0)
             {
                 endGameTimer -= Time.deltaTime;
 
-                if (endGameTimer > 0 && endGameTimer <= 1)
+
+                if (endGameTimer <= 0)
                 {
+                    Debug.Log("Ended");
                     gameOver();
                 }
             }
@@ -232,6 +234,6 @@ public class GameManager : MonoBehaviour {
 
     void gameOver()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("TempLoader");
     }
 }

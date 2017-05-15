@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
                     if (interaction != null)
                     {
                         interaction.GetComponent<InteractableObject>().interact(playerIndex);
-                        rb.velocity = Vector3.zero;
+                        
                     }
                 }
             }
@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour {
     public void isInPuzzle(bool _isTrue)
     {
         puzzled = _isTrue;
+        rb.velocity = Vector3.zero;
     }
 
     public bool getPuzzled()
