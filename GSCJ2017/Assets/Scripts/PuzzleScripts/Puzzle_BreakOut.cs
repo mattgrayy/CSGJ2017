@@ -30,14 +30,14 @@ public class Puzzle_BreakOut : Puzzle {
         
                 
         //Right
-        if (player.GetAxis("Horizontal") > 0 && wallXPos < 80)
+        if ((player.GetAxis("Horizontal") > 0 || player.GetButtonDown("Right"))&& wallXPos < 80)
         {
             playerWall.transform.position = playerWall.transform.position + new Vector3(70, 0) * Time.deltaTime;
             wallXPos += 70 * Time.deltaTime;
         }
 
         //Left
-        if (player.GetAxis("Horizontal") < 0 && wallXPos > -80)
+        if ((player.GetAxis("Horizontal") < 0 || player.GetButtonDown("Right")) && wallXPos > -80)
         {
             playerWall.transform.position = playerWall.transform.position + new Vector3(-70, 0) * Time.deltaTime;
             wallXPos += -70 * Time.deltaTime;

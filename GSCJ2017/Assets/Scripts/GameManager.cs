@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour {
 
                 if (failingImage.color.a < 1)
                 {
-                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 300));
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 200));
                 }
 
                 if (globalStress == 100 && endGameTimer <=0)
@@ -142,11 +142,11 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                globalStress = Mathf.Clamp(globalStress -= Time.deltaTime, 0, 100);
+                globalStress = Mathf.Clamp(globalStress -= Time.deltaTime/3, 0, 100);
 
                 if (failingImage.color.a > 0)
                 {
-                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 300));
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 200));
                 }
             }
 
