@@ -58,7 +58,9 @@ public class call_elevator : InteractableObject {
 
         if (!broken)
         {
-            lift.GetComponent<Elevator>().CallElevator(floortogoto);
+          
+                lift.GetComponent<Elevator>().CallElevator(floortogoto);
+            
         }
 
         if (broken)

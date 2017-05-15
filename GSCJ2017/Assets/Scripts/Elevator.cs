@@ -9,12 +9,14 @@ public class Elevator : InteractableObject
     [SerializeField] List<GameObject> Top;
     [SerializeField] List<GameObject> Bottom;
     [SerializeField] public int currentLOC;
-    [SerializeField] bool MovingUp;
-    [SerializeField] bool MovingDown;
+    [SerializeField] public bool MovingUp;
+    [SerializeField] public bool MovingDown;
 
     public int ell;
 
     public bool puzzleOpen = false;
+
+    bool called = false;
    
     [SerializeField] int floorchoice;
     public bool elevatorChild = false;
@@ -41,34 +43,47 @@ public class Elevator : InteractableObject
     // Update is called once per frame
     void Update()
     {
-        if (!MovingDown || !MovingUp)
+       
+            if (!MovingDown || !MovingUp)
+            {
+                if (MovingUp)
+                {
+                    ElevatorUp();
+                    
+                }
+                if (MovingDown)
+                {
+                    ElevatorDown();
+                   
+                }
+            }
+        
+        if (MovingUp && MovingDown)
         {
-            if (MovingUp)
-            {
-                ElevatorUp();
-            }
-            if (MovingDown)
-            {
-                ElevatorDown();
-            }
+            MovingDown = false;
+            MovingUp = false;
+            CallElevator(0);
         }
     }
 
    public void CallElevator(int floortogo)
     {
-        if (!MovingDown && !MovingUp)
+        if (ell == currentLOC)
         {
-            ell = floortogo;
-
-            if (currentLOC != floortogo)
+            if (!MovingDown && !MovingUp)
             {
-                if (floortogo < currentLOC)
+                ell = floortogo;
+
+                if (currentLOC != floortogo)
                 {
-                    MovingDown = true;
-                }
-                if (floortogo > currentLOC)
-                {
-                    MovingUp = true;
+                    if (floortogo < currentLOC)
+                    {
+                        MovingDown = true;
+                    }
+                    if (floortogo > currentLOC)
+                    {
+                        MovingUp = true;
+                    }
                 }
             }
         }
@@ -108,6 +123,7 @@ public class Elevator : InteractableObject
         {
             if (col.gameObject == Top[ell-1])
             {
+                
                 MovingUp = false;
                 currentLOC = ell;
 
@@ -119,6 +135,7 @@ public class Elevator : InteractableObject
         {
             if (col.gameObject == Bottom[ell])
             {
+                
                 MovingDown = false;
                 currentLOC = ell;
 
