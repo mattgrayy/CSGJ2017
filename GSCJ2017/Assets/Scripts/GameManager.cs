@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour {
 
     public bool gameStarted = false;
 
-    [SerializeField] int globalScore = 0;
-    [SerializeField] float globalStress = 0;
+    public int globalScore = 0;
+    public float globalStress = 0;
     bool stressOut = false, eventsOnCoolDown = false;
 
     public static GameManager m_instance = null;
@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour {
                 }
             }
 
-
             if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
             {
                 //there is a chance for an event to trigger
@@ -75,7 +74,7 @@ public class GameManager : MonoBehaviour {
                 {
                     case 0:
                         //Alien
-                        GameObject eventt1 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
+                        GameObject eventt1 = Instantiate(events[0], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
                         eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
                         eventt1.GetComponent<AlienInvasion>().target = target.transform;
 
@@ -124,7 +123,7 @@ public class GameManager : MonoBehaviour {
 
                 if (failingImage.color.a < 1)
                 {
-                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 100));
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 500));
                 }
 
                 if (globalStress == 100)
@@ -139,7 +138,7 @@ public class GameManager : MonoBehaviour {
 
                 if (failingImage.color.a > 0)
                 {
-                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 100));
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 500));
                 }
             }
 

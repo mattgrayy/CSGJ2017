@@ -7,19 +7,23 @@ public class PirateInvasion : MonoBehaviour {
     [SerializeField] Transform target = null;
     
 
-    bool entranceComplete = false;
+    public bool entranceComplete = false;
     
 	// Use this for initialization
 	void Awake () {
 
 
         Instantiate(explosion, target.transform.position, Quaternion.identity);
-        roofPiece.gameObject.SetActive(false);
         
 	}
 
     // Update is called once per frame
     void Update() {
+
+        if (roofPiece != null)
+        {
+            roofPiece.gameObject.SetActive(false);
+        }
 
 
         //drop the anchor
@@ -31,8 +35,12 @@ public class PirateInvasion : MonoBehaviour {
         else
         {
             entranceComplete = true;
+
+            //unparent pirates
+            //let them move
+
         }
-        
+
         GetComponent<LineRenderer>().SetPosition(0, boat.transform.position);
         GetComponent<LineRenderer>().SetPosition(1, anchorTop.transform.position);
 

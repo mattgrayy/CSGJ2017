@@ -154,6 +154,7 @@ public class FloorManager : MonoBehaviour {
 
             if (audioPlay)
             {
+                GetComponent<AudioSource>().Play();
                 Fire.GetComponent<AudioSource>().Play();
                 audioPlay = false;
             }
@@ -210,7 +211,8 @@ public class FloorManager : MonoBehaviour {
                 if (Fire.GetComponent<AudioSource>().volume == 0)
                 {
                     Fire.GetComponent<AudioSource>().Stop();
-
+                    Fire.GetComponent<AudioSource>().volume = 1;
+                    GetComponent<AudioSource>().Stop();
                 }
 
 

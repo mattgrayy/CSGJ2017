@@ -28,6 +28,8 @@ public class AlienInvasion : MonoBehaviour {
 
             entranceComplete = true;
 
+           
+
 
         }
 
