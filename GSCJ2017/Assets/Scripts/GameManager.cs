@@ -7,7 +7,7 @@ using Rewired;
 public class GameManager : MonoBehaviour {
 
     [SerializeField] float worldTimer = 0, newEventTimer = 0, eventCoolDown = 0, chanceTimer = 0;
-    [SerializeField] int eventReserve = 1;
+    [SerializeField] int eventReserve = 0;
     public float eventThreshhold = 120f;
     public GameObject roofPiece = null, boom = null, target = null;
     
@@ -113,6 +113,9 @@ public class GameManager : MonoBehaviour {
 
                     default:
                         //do nothing
+
+
+
 
                         break;
                 }
@@ -236,4 +239,6 @@ public class GameManager : MonoBehaviour {
     {
         SceneManager.LoadScene("TempLoader");
     }
+
+    
 }
