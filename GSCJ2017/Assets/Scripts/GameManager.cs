@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
                 //there is a chance for an event to trigger
                 int eventChance = Random.Range(0, 100);
 
-                switch (0)
+                switch (eventChance)
                 {
                     case 0:
                         //Alien
