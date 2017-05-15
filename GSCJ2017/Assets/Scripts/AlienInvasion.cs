@@ -3,8 +3,8 @@ using System.Collections;
 
 public class AlienInvasion : MonoBehaviour {
 
-    [SerializeField] GameObject explosion = null, roofPiece = null, door1 = null, door2 = null;
-    [SerializeField] Transform target = null;
+   public GameObject explosion = null, roofPiece = null, door1 = null, door2 = null;
+   public Transform target = null;
     bool entranceComplete = false, doorsOpen = false;
     public float rotTarget1 = 140f, rotTarget2 = -42;
 
@@ -27,6 +27,8 @@ public class AlienInvasion : MonoBehaviour {
         {
 
             entranceComplete = true;
+
+           
 
 
         }

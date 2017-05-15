@@ -12,10 +12,13 @@ public class BreakableObject : InteractableObject {
 
     public void breakObject()
     {
-        broken = true;
-        AlertImage.enabled = true;
-        sparksParticle.SetActive(true);
-        GameManager.m_instance.addToGlobalStress(2);
+        if (!broken)
+        {
+            broken = true;
+            AlertImage.enabled = true;
+            sparksParticle.SetActive(true);
+            GameManager.m_instance.addToGlobalStress(2);
+        }
     }
 
     public void fixObject()
