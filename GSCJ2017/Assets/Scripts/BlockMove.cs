@@ -8,6 +8,8 @@ public class BlockMove : MonoBehaviour {
     public PirateInvasion invaderControlerP = null;
     public AlienInvasion invaderControlerI = null;
 
+    [SerializeField] GameObject pirateHat, hat, alienAtenta;
+
     [SerializeField] Transform leftCorner;
     [SerializeField] Transform rightCorner;
 
@@ -313,6 +315,24 @@ public class BlockMove : MonoBehaviour {
             {
                 invaderControlerP.recalInvaders();
                 invaderControlerP.abductedPlayer = col.transform;
+
+                int i = Random.Range(0, 6);
+
+                switch(i)
+                {
+                    case 0:
+                        Instantiate(hat, transform.position, hat.transform.rotation);
+                        break;
+                    case 1:
+                        Instantiate(pirateHat, transform.position, pirateHat.transform.rotation);
+                        break;
+                    case 2:
+                        Instantiate(alienAtenta, transform.position, alienAtenta.transform.rotation);
+                        break;
+                }
+
+
+
             }
 
         }
