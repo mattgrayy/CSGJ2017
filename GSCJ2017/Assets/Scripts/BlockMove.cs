@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class BlockMove : MonoBehaviour {
 
+    public bool canMove = true, abductor = false, leaving = false, Gottem = false;
+    public PirateInvasion invaderControlerP = null;
+    public AlienInvasion invaderControlerI = null;
+
     [SerializeField] Transform leftCorner;
     [SerializeField] Transform rightCorner;
 
@@ -27,7 +31,7 @@ public class BlockMove : MonoBehaviour {
     // variables for breaking objects:
 
     float newTaskTimer = 0;
-    [SerializeField] FloorManager floorManager;
+    public FloorManager floorManager;
 
     [SerializeField] Transform tail;
     Vector3 tailRot;
@@ -50,98 +54,104 @@ public class BlockMove : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (rotating)
+        if (canMove)
         {
-            if (rotatePoint == leftCorner)
+            if (rotating)
             {
-                float ammount = (rotateModifier + (5*rotatedDegrees)) * Time.deltaTime;
-
-                if (rotatedDegrees + ammount > 90)
+                if (rotatePoint == leftCorner)
                 {
-                    float tempDegree = rotatedDegrees + ammount;
-                    tempDegree = Mathf.Clamp(tempDegree, 0, 90);
-                    ammount = tempDegree - rotatedDegrees;
-                }
+                    float ammount = (rotateModifier + (5 * rotatedDegrees)) * Time.deltaTime;
 
-                transform.RotateAround(rotatePoint.position, Vector3.forward, ammount);
-                rotatedDegrees += ammount;
-            }
-            else
-            {
-                float ammount = (rotateModifier + (5*rotatedDegrees)) * Time.deltaTime;
-
-                if (rotatedDegrees + ammount > 90)
-                {
-                    float tempDegree = rotatedDegrees + ammount;
-                    tempDegree = Mathf.Clamp(tempDegree, 0, 90);
-                    ammount = tempDegree - rotatedDegrees;
-                }
-
-                transform.RotateAround(rotatePoint.position, Vector3.forward, -ammount);
-                rotatedDegrees += ammount;
-            }
-
-            if (rotatedDegrees >= 90)
-            {
-                if (!isRacoon)
-                {
-                    GetComponent<AudioSource>().Play();
-                }
-                changeFace();
-                resetRotPoints();
-                rotating = false;
-            }
-        }
-        else
-        {
-            if (targetObject != null)
-            {
-                if (Vector3.Distance(transform.position, new Vector3(targetObject.position.x, transform.position.y, transform.position.z)) > 1.2f)
-                {
-                    if (targetObject.position.x > transform.position.x)
+                    if (rotatedDegrees + ammount > 90)
                     {
-                        rotateMe(transform.position - Vector3.right);
+                        float tempDegree = rotatedDegrees + ammount;
+                        tempDegree = Mathf.Clamp(tempDegree, 0, 90);
+                        ammount = tempDegree - rotatedDegrees;
                     }
-                    else
-                    {
-                        rotateMe(transform.position + Vector3.right);
-                    }
+
+                    transform.RotateAround(rotatePoint.position, Vector3.forward, ammount);
+                    rotatedDegrees += ammount;
                 }
                 else
                 {
-                    previousTarget = targetObject;
-                    targetObject = null;
-                    // random value should be relative to game time or something
-                    if (hasUSB || Random.Range(0, 8) == 0)
+                    float ammount = (rotateModifier + (5 * rotatedDegrees)) * Time.deltaTime;
+
+                    if (rotatedDegrees + ammount > 90)
                     {
-                        if (previousTarget.GetComponent<BreakableObject>() && GameManager.m_instance.gameStarted)
+                        float tempDegree = rotatedDegrees + ammount;
+                        tempDegree = Mathf.Clamp(tempDegree, 0, 90);
+                        ammount = tempDegree - rotatedDegrees;
+                    }
+
+                    transform.RotateAround(rotatePoint.position, Vector3.forward, -ammount);
+                    rotatedDegrees += ammount;
+                }
+
+                if (rotatedDegrees >= 90)
+                {
+                    if (!isRacoon)
+                    {
+                        GetComponent<AudioSource>().Play();
+                    }
+                    changeFace();
+                    resetRotPoints();
+                    rotating = false;
+                }
+            }
+            else
+            {
+                if (targetObject != null)
+                {
+                    if (Vector3.Distance(transform.position, new Vector3(targetObject.position.x, transform.position.y, transform.position.z)) > 1.2f)
+                    {
+                        if (targetObject.position.x > transform.position.x)
                         {
-                            previousTarget.GetComponent<BreakableObject>().breakObject();
-                            hasUSB = false;
-                            //Change face from usb face
-                            if (faceImage != null && faceWorried != null && faceHappy != null && faceNormal != null)
+                            rotateMe(transform.position - Vector3.right);
+                        }
+                        else
+                        {
+                            rotateMe(transform.position + Vector3.right);
+                        }
+                    }
+                    else
+                    {
+                        previousTarget = targetObject;
+                        targetObject = null;
+                        // random value should be relative to game time or something
+                        if (hasUSB || Random.Range(0, 8) == 0)
+                        {
+                            if (previousTarget.GetComponent<BreakableObject>() && GameManager.m_instance.gameStarted)
                             {
-                                faceImage.sprite = faceWorried;
+                                previousTarget.GetComponent<BreakableObject>().breakObject();
+                                hasUSB = false;
+                                //Change face from usb face
+                                if (faceImage != null && faceWorried != null && faceHappy != null && faceNormal != null)
+                                {
+                                    faceImage.sprite = faceWorried;
+                                }
                             }
                         }
                     }
                 }
+                else
+                {
+                    if (!leaving)
+                    {
+                        lookForNewJob();
+                    }
+                }
             }
-            else
+
+            if (tail != null)
             {
-                lookForNewJob();
+                // fix rotation of tail
+                Vector3 currentRotation = tail.eulerAngles;
+
+                currentRotation.x = Mathf.LerpAngle(currentRotation.x, tailRot.x, Time.deltaTime * 10);
+                currentRotation.y = Mathf.LerpAngle(currentRotation.y, tailRot.y, Time.deltaTime * 10);
+                currentRotation.z = Mathf.LerpAngle(currentRotation.z, tailRot.z, Time.deltaTime * 10);
+                tail.eulerAngles = currentRotation;
             }
-        }
-
-        if (tail != null)
-        {
-            // fix rotation of tail
-            Vector3 currentRotation = tail.eulerAngles;
-
-            currentRotation.x = Mathf.LerpAngle(currentRotation.x, tailRot.x, Time.deltaTime * 10);
-            currentRotation.y = Mathf.LerpAngle(currentRotation.y, tailRot.y, Time.deltaTime * 10);
-            currentRotation.z = Mathf.LerpAngle(currentRotation.z, tailRot.z, Time.deltaTime * 10);
-            tail.eulerAngles = currentRotation;
         }
     }
 
@@ -281,5 +291,40 @@ public class BlockMove : MonoBehaviour {
             // change screen to usb
             Destroy(col.gameObject);
         }
+
+
+        if (col.tag == "Player" && abductor && !Gottem)
+        {
+            
+            //abduct them
+            col.GetComponent<PlayerController>().canMove = false;
+            col.transform.parent = gameObject.transform;
+            col.transform.position = Vector3.zero;
+            col.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            if (invaderControlerI != null)
+            {
+                invaderControlerI.recalInvaders();
+            }
+
+            if (invaderControlerP != null)
+            {
+                invaderControlerP.recalInvaders();
+            }
+
+        }
+
+
+
     }
+
+
+    public void SetTargetObject(Transform target)
+    {
+        targetObject = target;
+    }
+
+
+
+
 }

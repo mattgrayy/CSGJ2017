@@ -10,7 +10,7 @@ public class Sprinkler_Button : InteractableObject
 
     float timer = 0;
     bool startTimer = false, triggerAllFloors = false, canWater = false;
-
+    int ranFloor = 0;
    int targetFloor = 7;
 
 
@@ -37,8 +37,7 @@ public class Sprinkler_Button : InteractableObject
             }
             else
             {
-                int ranFloor = Random.Range(0, 3);
-
+               
                 theMan.PutOutFireOnFloor(ranFloor);
                 canWater = false;
 
@@ -97,9 +96,11 @@ public class Sprinkler_Button : InteractableObject
         if (targetFloor == 7)
         {
             triggerAllFloors = true;
-            theMan.StartSprinklers(0);
-            theMan.StartSprinklers(1);
-            theMan.StartSprinklers(2);
+
+            ranFloor = Random.Range(0,3);
+
+            
+            theMan.StartSprinklers(ranFloor);
 
         }
 
