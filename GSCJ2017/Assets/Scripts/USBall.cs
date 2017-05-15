@@ -11,34 +11,32 @@ public class USBall : MonoBehaviour {
 
     public Puzzle_BreakOut controler;
     public Text timerText;
+    public bool play = false;
 
 
     private void Awake()
     {
         myTransform = transform;
         ridg = GetComponent<Rigidbody2D>();
-    }
-
-
-
-    // Use this for initialization
-    void Start () {
-
-       ridg.velocity += Vector2.down * 1;
-       ridg.velocity += Vector2.left * 1;
-
+        ridg.isKinematic = true;
+        controler.ball = this;
 
     }
-	
+
+
 	
 	void Update () {
 
-        timer -= Time.deltaTime;
-        timerText.text = timer.ToString();
+        if (play)
+        {    
+                   
+            timer -= Time.deltaTime;
+            timerText.text = timer.ToString();
 
-        if (timer <= 0f)
-        {
-            controler.WinPuzzle();
+            if (timer <= 0f)
+            {
+                controler.WinPuzzle();
+            }
         }	
 	}
 
@@ -50,5 +48,20 @@ public class USBall : MonoBehaviour {
             controler.LosePuzzle();
         }
     }
+
+
+    public void StartGame()
+    {
+        play = true;
+        ridg.isKinematic = false;
+        ridg.velocity += Vector2.down * 1;
+        ridg.velocity += Vector2.left * 1;
+
+
+    }
+
+
+
+
 
 }

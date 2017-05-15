@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour {
 
                 switch (eventChance)
                 {
+                    /*
                     case 0:
                         //Alien
                         GameObject eventt1 = Instantiate(events[0], new Vector3(-5.3f, 19.1f, -1.24f), Quaternion.identity) as GameObject;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour {
                         eventReserve--;
                         eventsOnCoolDown = true;
                         break;
+                        */
 
                     case 1:
                         //Pirate

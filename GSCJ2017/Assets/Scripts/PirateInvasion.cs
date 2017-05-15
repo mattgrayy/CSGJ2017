@@ -8,10 +8,10 @@ public class PirateInvasion : MonoBehaviour {
     public float waitTimer = 0;
 
     public List<BlockMove> pirates = new List<BlockMove>();
-    public int abductedPlayerIndex;
+    public Transform abductedPlayer;
 
 
-    public bool entranceComplete = false, waiting = false, puzzleLoaded = false;
+    public bool entranceComplete = false, waiting = false, puzzleLoaded = false, invasionFInished = false;
     
 	// Use this for initialization
 	void Awake () {
@@ -49,8 +49,10 @@ public class PirateInvasion : MonoBehaviour {
                 pirate.transform.parent = transform;
             }
 
+            invasionFInished = true;
+
             //then leave
-            if (transform.position.y < 0)
+            if (transform.position.y < 16)
             {
                 //retract anchor
                 transform.Translate(new Vector3(0, 15, 0) * Time.deltaTime);
@@ -59,40 +61,43 @@ public class PirateInvasion : MonoBehaviour {
             {
                 if (!puzzleLoaded)
                 {
-                    PuzzleManager.m_instance.loadWorldEventPuzzle(abductedPlayerIndex, GetComponent<InteractableObject>());
+                    PuzzleManager.m_instance.loadWorldEventPuzzle(abductedPlayer.GetComponent<PlayerController>().playerIndex, GetComponent<WorldEventInteractable>());
                     puzzleLoaded = true;
                 }
             }
             
         }
-
-
-        if (roofPiece != null)
+        if (!invasionFInished)
         {
-            roofPiece.gameObject.SetActive(false);
-        }
 
-
-        //drop the anchor
-        if (transform.position.y > 8.8 && !entranceComplete)
-        {
-            transform.Translate(new Vector3(0, -15, 0) * Time.deltaTime);
-
-        }
-        else
-        {
-            entranceComplete = true;
-
-            //unparent pirates
-            //let them move
-            foreach(BlockMove pirate in pirates)
+            if (roofPiece != null)
             {
-                pirate.canMove = true;
-                pirate.transform.parent = null;
-                
+                roofPiece.gameObject.SetActive(false);
             }
-            
+
+
+            //drop the anchor
+            if (transform.position.y > 8.8 && !entranceComplete)
+            {
+                transform.Translate(new Vector3(0, -15, 0) * Time.deltaTime);
+
+            }
+            else
+            {
+                entranceComplete = true;
+
+                //unparent pirates
+                //let them move
+                foreach (BlockMove pirate in pirates)
+                {
+                    pirate.canMove = true;
+                    pirate.transform.parent = null;
+
+                }
+
+            }
         }
+
 
         GetComponent<LineRenderer>().SetPosition(0, boat.transform.position);
         GetComponent<LineRenderer>().SetPosition(1, anchorTop.transform.position);

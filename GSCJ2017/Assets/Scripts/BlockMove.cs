@@ -118,7 +118,7 @@ public class BlockMove : MonoBehaviour {
                         previousTarget = targetObject;
                         targetObject = null;
                         // random value should be relative to game time or something
-                        if (hasUSB || Random.Range(0, 8) == 0)
+                        if (hasUSB || Random.Range(0, 4) == 0)
                         {
                             if (previousTarget.GetComponent<BreakableObject>() && GameManager.m_instance.gameStarted)
                             {
@@ -299,6 +299,7 @@ public class BlockMove : MonoBehaviour {
             //abduct them
             col.GetComponent<PlayerController>().canMove = false;
             col.transform.parent = gameObject.transform;
+            col.GetComponent<Rigidbody>().isKinematic = true;
             
             col.GetComponent<Rigidbody>().velocity = Vector3.zero;
             
@@ -311,7 +312,7 @@ public class BlockMove : MonoBehaviour {
             if (invaderControlerP != null)
             {
                 invaderControlerP.recalInvaders();
-                invaderControlerP.abductedPlayerIndex = col.GetComponent<PlayerController>().playerIndex;
+                invaderControlerP.abductedPlayer = col.transform;
             }
 
         }
