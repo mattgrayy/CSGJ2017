@@ -9,7 +9,7 @@ public class Sprinkler_Button : InteractableObject
     public GameManager theMan;
 
     float timer = 0;
-    bool startTimer = false, triggerAllFloors = false;
+    bool startTimer = false, triggerAllFloors = false, canWater = false;
 
    int targetFloor = 7;
 
@@ -27,20 +27,20 @@ public class Sprinkler_Button : InteractableObject
             timer += Time.deltaTime;
         }
 
-        if (timer >= 2f)
+        if (timer >= 2f && canWater)
         {
             if (!triggerAllFloors)
             {
                
                 theMan.PutOutFireOnFloor(targetFloor);
-                
+                canWater = false;
             }
             else
             {
                 int ranFloor = Random.Range(0, 3);
 
                 theMan.PutOutFireOnFloor(ranFloor);
-             
+                canWater = false;
 
             }
 
@@ -54,6 +54,7 @@ public class Sprinkler_Button : InteractableObject
 
             theMan.DeactivateAllSprinklers();
             
+            
         }
         
     }
@@ -61,6 +62,7 @@ public class Sprinkler_Button : InteractableObject
     override public void interact(int interactedPlayer)
     {
         startTimer = true;
+        canWater = true;
         targetFloor = 7;
 
         if (startTimer == true)
