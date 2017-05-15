@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] int eventReserve = 1;
     public float eventThreshhold = 120f;
     public GameObject roofPiece = null, boom = null, target = null;
+    
 
     public List<GameObject> events = new List<GameObject>();
 
@@ -70,13 +71,14 @@ public class GameManager : MonoBehaviour {
                 //there is a chance for an event to trigger
                 int eventChance = Random.Range(0, 100);
 
-                switch (eventChance)
+                switch (1)
                 {
                     case 0:
                         //Alien
                         GameObject eventt1 = Instantiate(events[0], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
                         eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
                         eventt1.GetComponent<AlienInvasion>().target = target.transform;
+                        
 
                         eventReserve--;
                         eventsOnCoolDown = true;
@@ -89,6 +91,7 @@ public class GameManager : MonoBehaviour {
 
                         GameObject eventt2 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
                         eventt2.GetComponent<PirateInvasion>().roofPiece = roofPiece;
+                        
 
                         eventReserve--;
                         eventsOnCoolDown = true;

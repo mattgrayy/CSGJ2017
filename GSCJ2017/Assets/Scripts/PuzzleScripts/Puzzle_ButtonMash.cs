@@ -7,12 +7,14 @@ public class Puzzle_ButtonMash : Puzzle {
     SpriteRenderer sr;
 
     int mashed = 0, attempts = 0, score = 25;
-    public int difficulty = 10;
+    public int difficulty = 6;
     public bool sequencePlaying = true;
     bool isSpam = true, choice = true;
     bool playerInputDisabled = true;
+    float timer = 0;
 
-    public Image spam = null, safe = null, wrong = null;
+    public Image spam = null, safe = null, wrong = null, correct = null;
+    public Text number = null;
 
     void Start()
     {
@@ -20,37 +22,40 @@ public class Puzzle_ButtonMash : Puzzle {
         mashed = 0;
         attempts = 0;
         sequencePlaying = true;
+        number.text = mashed.ToString();
     }
 
     void Update()
     {
-        if (sequencePlaying)
+        timer -= Time.deltaTime;
+        if (sequencePlaying && timer < 0)
         {
             if (choice)
             {
                 //select spam or safe
-                int emailType = Random.Range(0, 6);
+                int emailType = Random.Range(0, 3);
                 if (emailType == 0)
                 {
                     isSpam = false;
                     safe.gameObject.SetActive(true);
                     spam.gameObject.SetActive(false);
-                    wrong.gameObject.SetActive(false);
                 }
                 else if (emailType >= 1)
                 {
                     isSpam = true;
                     safe.gameObject.SetActive(false);
                     spam.gameObject.SetActive(true);
-                    wrong.gameObject.SetActive(false);
                 }
                 choice = false;
             }
+            correct.gameObject.SetActive(false);
+            wrong.gameObject.SetActive(false);
             if (player.GetButtonDown("Interact"))
             {
                 if (!isSpam)
                 {
                     correctButton();
+                   
                 }
                 else if (isSpam)
                 {
@@ -64,6 +69,7 @@ public class Puzzle_ButtonMash : Puzzle {
                 if (isSpam)
                 {
                     correctButton();
+                    
                 }
                 else if (!isSpam)
                 {
@@ -71,12 +77,17 @@ public class Puzzle_ButtonMash : Puzzle {
                 }
                 choice = true;
             }
+            
         }
     }
 
     void correctButton()
     {
         mashed++;
+        number.text = mashed.ToString();
+        correct.gameObject.SetActive(true);
+        timer = 0.3f;
+        //right.gameObject.SetActive(true);
         if (mashed == difficulty)
         {
             completePuzzle(true, score);
@@ -86,16 +97,14 @@ public class Puzzle_ButtonMash : Puzzle {
 
     void wrongButton()
     {
-        mashed = 0;
         attempts++;
         score -= 5;
         if (attempts >= 4)
             completePuzzle(true, 0);
         else
         {
-            safe.gameObject.SetActive(false);
-            spam.gameObject.SetActive(false);
             wrong.gameObject.SetActive(true);
+            timer = 0.3f;
         }
     }
 }

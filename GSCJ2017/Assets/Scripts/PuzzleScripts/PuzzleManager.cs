@@ -10,6 +10,7 @@ public class PuzzleManager : MonoBehaviour {
     [SerializeField] List<Text> defaultTextObjects = new List<Text>();
 
     [SerializeField] Transform elevatorPuzzle;
+    [SerializeField] Transform worldEventPuzzle;
 
     public static PuzzleManager m_instance = null;
 
@@ -38,6 +39,14 @@ public class PuzzleManager : MonoBehaviour {
     {
         defaultTextObjects[playerNumber].text = "";
         Transform madePuzzle = Instantiate(elevatorPuzzle, puzzleSpawnpoints[playerNumber].position, Quaternion.identity) as Transform;
+        madePuzzle.GetComponent<Puzzle>().setPlayer(playerNumber, requestor);
+        players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
+    }
+
+    public void loadWorldEventPuzzle(int playerNumber, InteractableObject requestor)
+    {
+        defaultTextObjects[playerNumber].text = "";
+        Transform madePuzzle = Instantiate(worldEventPuzzle, puzzleSpawnpoints[playerNumber].position, Quaternion.identity) as Transform;
         madePuzzle.GetComponent<Puzzle>().setPlayer(playerNumber, requestor);
         players[playerNumber].GetComponent<PlayerController>().isInPuzzle(true);
     }

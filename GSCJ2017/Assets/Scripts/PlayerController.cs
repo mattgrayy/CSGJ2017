@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour {
 
     private GameObject interaction;
 
+    public bool canMove = true;
+
     void Start()
     {
         player = ReInput.players.GetPlayer(playerIndex);
@@ -35,28 +37,31 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (!puzzled)
+        if (canMove)
         {
-            if (spawned)
+            if (!puzzled)
             {
-                Vector3 currentRotation = transform.eulerAngles;
+                if (spawned)
+                {
+                    Vector3 currentRotation = transform.eulerAngles;
 
-                currentRotation.z = Mathf.LerpAngle(currentRotation.z, target, Time.deltaTime * 4);
-                transform.eulerAngles = currentRotation;
+                    currentRotation.z = Mathf.LerpAngle(currentRotation.z, target, Time.deltaTime * 4);
+                    transform.eulerAngles = currentRotation;
 
-                if (player.GetButton("Right") || (player.GetAxis("Horizontal") > 0))
-                {
-                    rb.AddForce((Vector3.right * (speed)) * Time.deltaTime);
-                    target = rightRot;
-                }
-                if (player.GetButton("Left") || (player.GetAxis("Horizontal") < 0))
-                {
-                    rb.AddForce((-Vector3.right * (speed)) * Time.deltaTime);
-                    target = leftRot;
-                }
-                if (!player.GetButton("Right") && !player.GetButton("Left") && player.GetAxis("Horizontal") == 0)
-                {
-                    target = 0;
+                    if (player.GetButton("Right") || (player.GetAxis("Horizontal") > 0))
+                    {
+                        rb.AddForce((Vector3.right * (speed)) * Time.deltaTime);
+                        target = rightRot;
+                    }
+                    if (player.GetButton("Left") || (player.GetAxis("Horizontal") < 0))
+                    {
+                        rb.AddForce((-Vector3.right * (speed)) * Time.deltaTime);
+                        target = leftRot;
+                    }
+                    if (!player.GetButton("Right") && !player.GetButton("Left") && player.GetAxis("Horizontal") == 0)
+                    {
+                        target = 0;
+                    }
                 }
             }
         }

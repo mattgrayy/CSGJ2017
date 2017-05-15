@@ -1,14 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class AlienInvasion : MonoBehaviour {
 
-   public GameObject explosion = null, roofPiece = null, door1 = null, door2 = null;
-   public Transform target = null;
+    public GameObject explosion = null, roofPiece = null, door1 = null, door2 = null;
+    public Transform target = null;
     bool entranceComplete = false, doorsOpen = false;
     public float rotTarget1 = 140f, rotTarget2 = -42;
+    
 
     Vector3 currentRotation1 = new Vector3(38, -90, 90), currentRotation2 = new Vector3(38, -90, 90);
+    public List<BlockMove> aliens = new List<BlockMove>();
+
+    void Awake()
+    {
+
+        foreach (BlockMove alien in aliens)
+        {
+            alien.floorManager = GameManager.m_instance.floorManagers[0];
+            alien.invaderControlerI = this;
+        }
+
+
+    }
+
 
 
     // Update is called once per frame
@@ -76,4 +91,13 @@ public class AlienInvasion : MonoBehaviour {
 
         }
     }
+
+
+    public void recalInvaders()
+    {
+
+
+    }
+
+
 }
