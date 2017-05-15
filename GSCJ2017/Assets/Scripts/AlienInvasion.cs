@@ -33,7 +33,7 @@ public class AlienInvasion : MonoBehaviour {
 
         // move UFO
         //1 , 12.4, -1.2        
-        if (transform.position.y > 12 && !entranceComplete)
+        if (transform.position.y > 13 && !entranceComplete)
         {
             transform.Translate(new Vector3(15, -15, 0) * Time.deltaTime);
 

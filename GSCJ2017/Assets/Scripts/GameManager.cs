@@ -71,11 +71,11 @@ public class GameManager : MonoBehaviour {
                 //there is a chance for an event to trigger
                 int eventChance = Random.Range(0, 100);
 
-                switch (1)
+                switch (0)
                 {
                     case 0:
                         //Alien
-                        GameObject eventt1 = Instantiate(events[0], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
+                        GameObject eventt1 = Instantiate(events[0], new Vector3(-5.3f, 19.1f, -1.24f), Quaternion.identity) as GameObject;
                         eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
                         eventt1.GetComponent<AlienInvasion>().target = target.transform;
                         

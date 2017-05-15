@@ -8,9 +8,10 @@ public class PirateInvasion : MonoBehaviour {
     public float waitTimer = 0;
 
     public List<BlockMove> pirates = new List<BlockMove>();
+    public int abductedPlayerIndex;
 
 
-    public bool entranceComplete = false, waiting = false;
+    public bool entranceComplete = false, waiting = false, puzzleLoaded = false;
     
 	// Use this for initialization
 	void Awake () {
@@ -39,13 +40,14 @@ public class PirateInvasion : MonoBehaviour {
         if (waitTimer > 3)
         {
 
+            waiting = false;
+
             //pirates leave
             foreach (BlockMove pirate in pirates)
             {
                 pirate.canMove = false;
                 pirate.transform.parent = transform;
             }
-
 
             //then leave
             if (transform.position.y < 0)
@@ -55,10 +57,11 @@ public class PirateInvasion : MonoBehaviour {
             }
             else
             {
-
-
-
-
+                if (!puzzleLoaded)
+                {
+                    PuzzleManager.m_instance.loadWorldEventPuzzle(abductedPlayerIndex, GetComponent<InteractableObject>());
+                    puzzleLoaded = true;
+                }
             }
             
         }
