@@ -65,14 +65,6 @@ public class GameManager : MonoBehaviour {
                 }
             }
 
-<<<<<<< HEAD
-        if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
-        {
-            //there is a chance for an event to trigger
-            int eventChance = Random.Range(0, 2);
-=======
->>>>>>> origin/master
-
             if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
             {
                 //there is a chance for an event to trigger
