@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Rewired;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,10 +12,15 @@ public class GameManager : MonoBehaviour {
     public GameObject roofPiece = null, boom = null, target = null;
 
     public List<GameObject> events = new List<GameObject>();
-    
 
     public List<FloorManager> floorManagers = new List<FloorManager>();
     [SerializeField] Image failingImage;
+
+    [SerializeField] Image startScreen;
+    [SerializeField] Image endScreen;
+    float endGameTimer = 0;
+
+    public bool gameStarted = false;
 
     [SerializeField] int globalScore = 0;
     [SerializeField] float globalStress = 0;
@@ -35,96 +42,133 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
-        worldTimer += Time.deltaTime;
-        newEventTimer += Time.deltaTime;
-        chanceTimer += Time.deltaTime;
-
-        if (newEventTimer >= eventThreshhold)
+        if (gameStarted)
         {
-            newEventTimer = 0;
-            eventReserve++;
-        }
+            worldTimer += Time.deltaTime;
+            newEventTimer += Time.deltaTime;
+            chanceTimer += Time.deltaTime;
 
-        if (eventsOnCoolDown)
-        {
-            eventCoolDown += Time.deltaTime;
-
-            if (eventCoolDown > eventThreshhold)
+            if (newEventTimer >= eventThreshhold)
             {
-                eventsOnCoolDown = false;
-                eventCoolDown = 0;
+                newEventTimer = 0;
+                eventReserve++;
             }
-        }
 
+            if (eventsOnCoolDown)
+            {
+                eventCoolDown += Time.deltaTime;
 
+                if (eventCoolDown > eventThreshhold)
+                {
+                    eventsOnCoolDown = false;
+                    eventCoolDown = 0;
+                }
+            }
+
+<<<<<<< HEAD
         if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
         {
             //there is a chance for an event to trigger
             int eventChance = Random.Range(0, 2);
+=======
+>>>>>>> origin/master
 
-            switch (eventChance)
+            if (eventReserve > 0 && !eventsOnCoolDown && chanceTimer > 5)
             {
-                case 0:
-                    //Alien
-                    GameObject eventt1 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
-                    eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
-                    eventt1.GetComponent<AlienInvasion>().target = target.transform;
+                //there is a chance for an event to trigger
+                int eventChance = Random.Range(0, 100);
 
-                    eventReserve--;
-                    eventsOnCoolDown = true;
-                    break;
+                switch (eventChance)
+                {
+                    case 0:
+                        //Alien
+                        GameObject eventt1 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
+                        eventt1.GetComponent<AlienInvasion>().roofPiece = roofPiece;
+                        eventt1.GetComponent<AlienInvasion>().target = target.transform;
 
-                case 1:
-                    //Pirate
-                    //spawn point
-                    // 3.86  17.12  -1.24
+                        eventReserve--;
+                        eventsOnCoolDown = true;
+                        break;
 
-                    GameObject eventt2 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
-                    eventt2.GetComponent<PirateInvasion>().roofPiece = roofPiece;
+                    case 1:
+                        //Pirate
+                        //spawn point
+                        // 3.86  17.12  -1.24
 
-                    eventReserve--;
-                    eventsOnCoolDown = true;
-                    break;
+                        GameObject eventt2 = Instantiate(events[1], new Vector3(3.86f, 17.1f, -1.24f), Quaternion.identity) as GameObject;
+                        eventt2.GetComponent<PirateInvasion>().roofPiece = roofPiece;
 
-                case 2:
-                case 3:
-                case 4:
-                    //Fire
-                    int ranFloor = Random.Range(0, 3);
-                    floorManagers[ranFloor].onFire = true;
+                        eventReserve--;
+                        eventsOnCoolDown = true;
+                        break;
 
-                    eventReserve--;
-                    eventsOnCoolDown = true;
-                    break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        //Fire
+                        int ranFloor = Random.Range(0, 3);
+                        floorManagers[ranFloor].onFire = true;
+
+                        eventReserve--;
+                        eventsOnCoolDown = true;
+                        break;
 
 
-                default:
-                    //do nothing
-                    
-                    break;
+                    default:
+                        //do nothing
+
+                        break;
+                }
+
+                chanceTimer = 0;
+
             }
 
-            chanceTimer = 0;
 
-        }
-
-
-        if (stressOut)
-        {
-            globalStress = Mathf.Clamp(globalStress += Time.deltaTime, 0, 100);
-
-            if (failingImage.color.a < 1)
+            if (stressOut)
             {
-                failingImage.color += new Color(0, 0, 0, 0.001f);
+                globalStress = Mathf.Clamp(globalStress += Time.deltaTime, 0, 100);
+
+                if (failingImage.color.a < 1)
+                {
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 100));
+                }
+
+                if (globalStress == 100)
+                {
+                    endGameTimer = 5;
+                    endScreen.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                globalStress = Mathf.Clamp(globalStress -= Time.deltaTime, 0, 100);
+
+                if (failingImage.color.a > 0)
+                {
+                    failingImage.color = new Color(failingImage.color.r, failingImage.color.g, failingImage.color.b, (globalStress / 100));
+                }
+            }
+
+            if (endGameTimer > 1)
+            {
+                endGameTimer -= Time.deltaTime;
+
+                if (endGameTimer > 0 && endGameTimer <= 1)
+                {
+                    gameOver();
+                }
             }
         }
         else
         {
-            globalStress = Mathf.Clamp(globalStress -= Time.deltaTime, 0, 100);
-
-            if (failingImage.color.a > 0)
+            foreach (Player p in ReInput.players.GetPlayers())
             {
-                failingImage.color -= new Color(0, 0, 0, 0.001f);
+                if (p.GetButtonDown("Start"))
+                {
+                    gameStarted = true;
+                    startScreen.gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -159,11 +203,6 @@ public class GameManager : MonoBehaviour {
     {
         globalStress += _stressToAdd;
         checkStressLevels();
-
-        if (stressOut)
-        {
-            GetComponent<CameraShake2>().ShakeCamera(0.1f, globalStress / 1000);
-        }
     }
 
     void checkStressLevels()
@@ -192,5 +231,10 @@ public class GameManager : MonoBehaviour {
         {
             stressOut = false;
         }
+    }
+
+    void gameOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
